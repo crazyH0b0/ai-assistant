@@ -1,3 +1,5 @@
+"use client"
+
 import { UserRegistrationProps, UserRegistrationSchema } from './../../schemas/auth.schema';
 import { useToast } from "@/components/ui/use-toast"
 import { useSignUp } from "@clerk/nextjs"
@@ -55,8 +57,6 @@ export const useSignUpForm = () => {
 
   }
 
-
-
   const onHandleSubmit = form.handleSubmit(
     async (data: UserRegistrationProps) => {
       const {type, fullname, otp} = data
@@ -107,4 +107,11 @@ export const useSignUpForm = () => {
 
     }
   )
+
+  return {
+    form,
+    onHandleSubmit,
+    onGenerateOTP,
+    loading
+  }
 }
