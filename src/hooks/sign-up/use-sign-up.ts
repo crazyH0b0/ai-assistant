@@ -37,13 +37,16 @@ export const useSignUpForm = () => {
 
     try {
 
+      // 创建注册
       await signUp.create({
         emailAddress: email,
         password: password
       })
 
+      // 准备邮箱验证码验证
       await signUp.prepareEmailAddressVerification({strategy: 'email_code'})
-
+      
+      // 进入下一步
       onNext((prev) => prev +1 )
 
     } catch (error: any) {
@@ -57,6 +60,7 @@ export const useSignUpForm = () => {
 
   }
 
+  // 表单提交处理函数
   const onHandleSubmit = form.handleSubmit(
     async (data: UserRegistrationProps) => {
       const {type, fullname, otp} = data
@@ -66,7 +70,8 @@ export const useSignUpForm = () => {
        try {
 
         setLoading(true)
-
+        
+        // 尝试邮箱验证码验证
         const complateSignup = await signUp.attemptEmailAddressVerification({
           code: otp
         })
