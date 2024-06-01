@@ -50,7 +50,7 @@ const UserTypeCard = ({value, title, text, register, userType, setUserType}: Pro
                 id={value}
                 className='hidden'
                 type='radio'
-                ></Input>
+                />
               </div>
             </div>
         </CardContent>

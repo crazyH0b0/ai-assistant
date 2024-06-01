@@ -116,7 +116,6 @@ const FormGenerator = ({
           />
         </Label>
       )
-      defualt: return <></>
   }
 }
 

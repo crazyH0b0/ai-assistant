@@ -26,7 +26,8 @@ const RegistrationFormStep = () => {
         setUserType={setUserType}
       />
     case 2:
-      return <DetailForm />
+      return <DetailForm  register={register}
+      />
     case 3:
       // return <TypeSelectionForm />
   }
