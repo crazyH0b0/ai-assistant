@@ -17,7 +17,7 @@ export const UserRegistrationSchema: ZodType<UserRegistrationProps> = z
       .string()
       .min(4, { message: '用户名必须至少为4个字符' }),
     email: z.string().email({ message: '邮箱格式不正确' }),
-    confirmEmail: z.string().email(),
+    confirmEmail: z.string().email({message: '邮箱格式不正确'}),
     password: z
       .string()
       .min(8, { message: '密码必须至少包含8个字符' })
@@ -32,11 +32,11 @@ export const UserRegistrationSchema: ZodType<UserRegistrationProps> = z
     otp: z.string().min(6, { message: '你必须输入一个6位数的代码' }),
   })
   .refine((schema) => schema.password === schema.confirmPassword, {
-    message: '密码不匹配',
+    message: '两次输入的密码不一致',
     path: ['confirmPassword'],
   })
   .refine((schema) => schema.email === schema.confirmEmail, {
-    message: '输入的电子邮件不匹配',
+    message: '两次输入的邮箱不一致',
     path: ['confirmEmail'],
   })
 
@@ -75,6 +75,6 @@ export const ChangePasswordSchema: ZodType<ChangePasswordProps> = z
     confirmPassword: z.string(),
   })
   .refine((schema) => schema.password === schema.confirmPassword, {
-    message: '密码不匹配',
+    message: '两次输入的密码不一致',
     path: ['confirmPassword'],
   })
