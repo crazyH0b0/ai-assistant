@@ -43,7 +43,7 @@ export const useSignUpForm = () => {
         password: password
       })
 
-      // 准备邮箱验证码验证
+      // 发送邮箱验证码
       await signUp.prepareEmailAddressVerification({strategy: 'email_code'})
       
       // 进入下一步

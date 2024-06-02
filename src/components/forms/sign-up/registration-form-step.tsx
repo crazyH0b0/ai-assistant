@@ -11,8 +11,13 @@ const DetailForm = dynamic(() => import('./account-detail-form'), {
   loading: Spinner
 })
 
+const OTPForm = dynamic(() => import('./OTP-Form'), {
+  ssr: false,
+  loading: Spinner
+})
+
 const RegistrationFormStep = () => {
-  const {register, formState, setValue} = useFormContext()
+  const {register, formState: {errors}, setValue} = useFormContext()
   const {currentStep} = useAuthContext()
   const [OTP, setOTP] = React.useState('')
   const [userType, setUserType] = React.useState<'owner' | 'student'>('owner')
@@ -26,10 +31,10 @@ const RegistrationFormStep = () => {
         setUserType={setUserType}
       />
     case 2:
-      return <DetailForm  register={register}
+      return <DetailForm errors={errors}  register={register}
       />
     case 3:
-      // return <TypeSelectionForm />
+      return <OTPForm otp={OTP} setOTP={setOTP}  />
   }
   
   return (

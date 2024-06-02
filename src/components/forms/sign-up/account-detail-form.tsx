@@ -13,7 +13,6 @@ const AccountDetailForm = ({register, errors}: Props) => {
   return (
     <>
       <h2 className='text-gravel md:text-4xl font-bold'>用户详情</h2>
-      <p className='text-iridium md:text-sm'>输入邮箱和密码</p>
       {
         USER_REGISTRATION_FORM.map((field) => (
           <FormGenerator
