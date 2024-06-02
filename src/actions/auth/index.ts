@@ -1,5 +1,8 @@
 "use server"
 import { prisma } from "@/server/db/client"
+import { auth, currentUser } from "@clerk/nextjs/server"
+import { redirect } from "next/navigation"
+import { onGetAllAccountDomains } from "../settings"
 
 export const onComplateUserRegistration = async(
   fullname: string,
@@ -28,4 +31,31 @@ export const onComplateUserRegistration = async(
   } catch (error) {
     return {status: 400}
   }
+}
+
+export const onLoginUser = async () => {
+
+  const user = await currentUser()
+  if(!user) return auth().redirectToSignIn()
+    try {
+      const authenticated = await prisma.user.findUnique({
+        where: {
+          clerkId: user.id
+        },
+        select: {
+          fullname: true,
+          id: true,
+          type: true
+        }
+      })
+
+      if(authenticated){
+        const domains = onGetAllAccountDomains()
+        return {status: 200, user: authenticated, domains: domains}
+      }
+
+    } catch (error) {
+      return {status: 400}
+    }
+      
 }

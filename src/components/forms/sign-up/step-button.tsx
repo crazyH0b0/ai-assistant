@@ -37,7 +37,7 @@ const StepButton = (props: Props) => {
             )
           })
         }
-        >创建账号</Button>
+        >下一步</Button>
         <p>已经拥有账号？{' '}
         <Link href={'/auth/sign-in'} className='font-bold underline'>登录</Link>
         </p>
