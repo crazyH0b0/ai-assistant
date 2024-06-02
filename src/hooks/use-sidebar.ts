@@ -6,11 +6,7 @@ import { useClerk } from '@clerk/nextjs'
 import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 
-interface Props {
-  
-}
-
-const UseSidebar = (props: Props) => {
+const useSidebar = () => {
   const [expand, setExpand] = React.useState<boolean | undefined>(undefined)
   const router = useRouter()
   const pathname = usePathname()
@@ -71,4 +67,4 @@ const UseSidebar = (props: Props) => {
   }
 }
 
-export default UseSidebar
+export default useSidebar

@@ -1,5 +1,5 @@
 "use client"
-import UseSidebar from '@/hooks/use-sidebar'
+import useSidebar from '@/hooks/use-sidebar'
 import React from 'react'
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Sidebar = ({domains}: Props) => {
-  const {expand, onExpend, page, onSignOut} = UseSidebar()
+  const {expand, onExpand, page, onSignOut} = useSidebar()
   return (
     <div>
       sidebar
