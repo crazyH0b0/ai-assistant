@@ -9,7 +9,7 @@ export async function onToggleRealtime (id: string, state: boolean) {
         id
       },
       data: {
-        live: true
+        live: state
       },
       select: {
         id: true,
@@ -29,4 +29,26 @@ export async function onToggleRealtime (id: string, state: boolean) {
     
   }
 
+}
+
+export async function onGetConversationMode(id:string) {
+  try {
+    const mode = await prisma.chatRoom.findUnique({
+      where: {
+        id
+      },
+      select: {
+        live: true
+      }
+    })
+
+    console.log({mode});
+    
+    return mode
+
+  } catch (error) {
+    console.log(error);
+    
+  }
+  
 }
