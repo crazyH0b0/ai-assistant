@@ -10,6 +10,7 @@ const SignUpFormProvider = ({children}:{children: React.ReactNode}) => {
   const {form, onHandleSubmit, loading} = useSignUpForm()
   return (
     <AuthContextProvider>
+       {/* 需要用到 form 状态的组件太多，所以考虑使用了 provider 的方式，避免 prop drilling */}
       <FormProvider {...form}>
         <form onSubmit={onHandleSubmit}>
           <div className='flex flex-col justify-between gap-3 h-full'>

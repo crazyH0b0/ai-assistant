@@ -7,6 +7,9 @@ import { Plus } from 'lucide-react'
 import Loader from '../loader'
 import FormGenerator from '../forms/form-generator'
 import UploadButton from '../upload-button'
+import { Button } from '../ui/button'
+import Link from 'next/link'
+import Image from 'next/image'
 
 interface Props {
   min?: boolean
@@ -46,12 +49,35 @@ const DomainMenu = ({ domains, min }: Props) => {
               type='text'
               />
               <UploadButton register={register} errors={errors} label='上传图标' />
+              <Button className='w-full' type='submit'>添加域名</Button>
             </form>
           </Loader>
         </AppDrawer>
         
       </div>
-      
+        <div className='flex flex-col gap-1 text-ironside font-medium'>
+          {
+          domains &&  domains.map((domain) => (
+              <Link
+              href={`/settings/${domain.name.split("."[0])}`}
+              key={domain.id}
+              className={cn(
+                'flex gap-3 hover:bg-white rounded-full transition duration-100 ease-in-out cursor-pointer ',
+                !min ? 'p-2' : 'py-2',
+                domain.name.split('.')[0] == isDomain && 'bg-white'
+              )}
+             >
+                <Image
+                src={``}
+                alt="logo"
+                width={20}
+                height={20}
+              />
+              {!min && <p className="text-sm">{domain.name}</p>}
+            </Link>
+            ))
+          }
+        </div>
     </div>
   )
 }

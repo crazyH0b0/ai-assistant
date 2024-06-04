@@ -1,5 +1,6 @@
 import InfoBar from '@/components/infobar'
 import BillingSetting from '@/components/settings/billing-setting'
+import DarModeToggle from '@/components/settings/dark-mode'
 import React from 'react'
 
 const SettingsPage =async () => {
@@ -11,6 +12,7 @@ const SettingsPage =async () => {
     flex-col gap-10
     '>
       <BillingSetting />
+      <DarModeToggle />
     </div>
     </>
   )

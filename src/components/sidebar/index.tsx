@@ -7,7 +7,6 @@ import UnexpandMenu from './unexpand-menu'
 
 interface Props {
   domains: {
-    
       id: string
       name: string
       icon: string
@@ -36,7 +35,7 @@ const Sidebar = ({domains}: Props) => {
           <UnexpandMenu
           domains={domains}
           current={page!}
-          onExpand={onExpand}
+          onShrink={onExpand}
           onSignOut={onSignOut}
           />
         )

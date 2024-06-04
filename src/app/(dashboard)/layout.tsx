@@ -1,4 +1,5 @@
 import { onLoginUser } from '@/actions/auth'
+import Sidebar from '@/components/sidebar'
 import { ChatProvider } from '@/context/use-chat-context'
 import React from 'react'
 
@@ -15,7 +16,10 @@ const OwnerLayout =async ({children}: Props) => {
   return (
     <ChatProvider>
       <div className='flex h-screen w-full'>
+        <Sidebar domains={authenticated.domains?.domains}/>
+        <div className='w-full h-screen flex flex-col py-3 pr-10  pl-20 md:px-10'>
         {children}
+        </div>
       </div>
     </ChatProvider>
   )

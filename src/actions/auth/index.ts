@@ -1,7 +1,6 @@
 "use server"
 import { prisma } from "@/server/db/client"
 import { auth, currentUser } from "@clerk/nextjs/server"
-import { redirect } from "next/navigation"
 import { onGetAllAccountDomains } from "../settings"
 
 export const onComplateUserRegistration = async(
@@ -50,7 +49,7 @@ export const onLoginUser = async () => {
       })
 
       if(authenticated){
-        const domains = onGetAllAccountDomains()
+        const domains = await onGetAllAccountDomains()
         return {status: 200, user: authenticated, domains: domains}
       }
 
