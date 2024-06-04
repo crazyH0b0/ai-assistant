@@ -1,5 +1,6 @@
 import InfoBar from '@/components/infobar'
 import BillingSetting from '@/components/settings/billing-setting'
+import ChangePassword from '@/components/settings/change-password'
 import DarModeToggle from '@/components/settings/dark-mode'
 import React from 'react'
 
@@ -13,6 +14,7 @@ const SettingsPage =async () => {
     '>
       <BillingSetting />
       <DarModeToggle />
+      <ChangePassword />
     </div>
     </>
   )

@@ -69,7 +69,7 @@ const BillingSetting =async (props: Props) => {
             ? '开始增长你的生意'
             : plan === 'ULTIMATE'
             ? '无限制'
-            : '开始ai'
+            : '免费版'
           }
         </p>
       </div>
