@@ -1,7 +1,68 @@
 "use server"
 import { prisma } from "@/server/db/client"
-import { auth, currentUser } from "@clerk/nextjs/server"
+import { auth, clerkClient, currentUser } from "@clerk/nextjs/server"
 
+// 获取域名
+export async function onGetCurrentDomain(domain:string) {
+  const user = await currentUser()
+  if(!user) return auth().redirectToSignIn()
+  try {
+    const userDomain = await prisma.user.findUnique({
+      where: {
+        clerkId: user.id
+      },
+      select: {
+        domains: {
+          where: {
+            name: {
+              contains:domain
+            }
+          },
+          select: {
+            id: true,
+            name: true,
+            icon: true,
+            userId: true,
+            chatBot: {
+              select: {
+                id: true,
+                welcomeMessage: true,
+                icon: true
+              }
+              
+            }
+          }
+        },
+        subscription: {
+          select: {
+            plan: true
+          }
+        },
+        
+      }
+    })
+    if(userDomain) return userDomain
+  } catch (error) {
+    console.log(error);
+    
+  }
+  
+}
+
+// 修改密码
+export async function onUpdatePassword(password: string) {
+  try {
+    const user = await currentUser()
+  if(!user) return auth().redirectToSignIn()
+  const update = await clerkClient.users.updateUser(user.id, {password})
+  if(update) return {status: 200, message: '密码更新成功~'}
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+// 添加域名
 export async function handleAddDomainAction(doamin:string, icon:string) {
   const user = await currentUser()
   if(!user) return auth().redirectToSignIn()
@@ -80,6 +141,7 @@ export async function handleAddDomainAction(doamin:string, icon:string) {
   
 }
 
+// 获取用户的域名
 export const onGetAllAccountDomains = async () => {
   const user = await currentUser()
   if(!user) return auth().redirectToSignIn()
