@@ -11,8 +11,8 @@ const OwnerLayout =async ({children}: Props) => {
   const authenticated = await onLoginUser()
   
   if(!authenticated) return null
-
-
+  
+  
   return (
     <ChatProvider>
       <div className='flex h-screen w-full'>
