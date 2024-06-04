@@ -38,12 +38,12 @@ const DomainMenu = ({ domains, min }: Props) => {
         </div>}
         >
           <Loader loading={loading}>
-            <form className='flex flex-col mt-3 w-6/12 gap-3' onSubmit={onAddDomain}>
+            <form  className='flex flex-col mt-3 w-6/12 gap-3' onSubmit={onAddDomain}>
               <FormGenerator
               inputType='input'
               register={register}
               label='域名'
-              name='域名'
+              name='domain'
               errors={errors}
               placeholder='baidu.com'
               type='text'
@@ -62,7 +62,7 @@ const DomainMenu = ({ domains, min }: Props) => {
               href={`/settings/${domain.name.split("."[0])}`}
               key={domain.id}
               className={cn(
-                'flex gap-3 hover:bg-white rounded-full transition duration-100 ease-in-out cursor-pointer ',
+                'flex gap-3 justify-center hover:bg-white rounded-full transition duration-100 ease-in-out cursor-pointer ',
                 !min ? 'p-2' : 'py-2',
                 domain.name.split('.')[0] == isDomain && 'bg-white'
               )}

@@ -18,6 +18,7 @@ interface Props {
 
 const Sidebar = ({domains}: Props) => {
   const {expand, onExpand, page, onSignOut} = useSidebar()
+  
   return (
     <div className={cn('bg-cream h-full w-[60px] fill-mode-forwards fixed md:relative',
       expand === undefined && '',

@@ -9,7 +9,7 @@ import React from 'react';
 import { handleAddDomainAction } from '@/actions/settings';
 
 export default   function useDomain() {
-  const {register, handleSubmit, formState:{errors}, reset} = useForm<z.infer<typeof AddDomainSchema>>({
+  const {register ,handleSubmit, formState:{errors}, reset} = useForm<FieldValues>({
     resolver: zodResolver(AddDomainSchema),
   }
   )
@@ -23,9 +23,10 @@ export default   function useDomain() {
     setIsDomain(pathname.split('/').pop())
   }, [pathname])
 
-  const onAddDomain = handleSubmit(async (values: FieldValues) => {
+  const onAddDomain = handleSubmit(async (values: FieldValues) => {    
     setLoading(true)
-    const domain =  await handleAddDomainAction(values.domain, values.uuid)
+    // 替换 IMAGE 的地址
+    const domain =  await handleAddDomainAction('baidu.com', crypto.randomUUID())
     if(domain) {
       reset()
       setLoading(false)
