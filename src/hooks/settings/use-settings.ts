@@ -1,14 +1,66 @@
 "use client"
-import { onChatBotImageUpdate, onDeletedUserDomain, onUpdateDomain, onUpdatePassword, onUpdateWelcomeMessage } from "@/actions/settings"
+import { onChatBotImageUpdate, onCreateHelpDeskQuestion, onDeletedUserDomain, onGetAllHelpDeskQuestions, onUpdateDomain, onUpdatePassword, onUpdateWelcomeMessage } from "@/actions/settings"
 import { useToast } from "@/components/ui/use-toast"
 import { ChangePasswordSchema } from "@/schemas/auth.schema"
-import { DomainSettingsSchema } from "@/schemas/settings.schema"
+import { DomainSettingsSchema, HelpDeskQuestionsSchema } from "@/schemas/settings.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+
+export function useHelpDesk(id: string) {
+  const {toast} = useToast()
+  const [loading, setLoading] = React.useState(false)
+  const [questions, setQuestions] = React.useState<{id:string, question: string,answer:string}[]>([])
+
+  const {handleSubmit, reset, register, formState:{errors}} = useForm<z.infer<typeof HelpDeskQuestionsSchema>>({
+    resolver: zodResolver(HelpDeskQuestionsSchema),
+    mode: 'onChange'
+  })
+
+  const onSubmitQuestion = handleSubmit(async (values) => {
+    setLoading(true)
+    const question = await onCreateHelpDeskQuestion(
+      id,
+      values.question,
+      values.answer
+    )
+    if(question) {
+      setQuestions(question.questions!)
+      toast({
+        title: question.status === 200 ? '成功' : '失败'
+      })
+      setLoading(false)
+      reset()
+    }
+    
+  })
+
+  const onGetQuestions = async () => {
+    setLoading(true)
+    const questions = await onGetAllHelpDeskQuestions(id)
+    if(questions) {
+      setQuestions(questions.questions)
+      setLoading(false)
+    }
+    
+  }
+  React.useEffect(() => {
+    onGetAllHelpDeskQuestions(id)
+  }, [])
+  
+  
+  return {
+    register,
+    onSubmitQuestion,
+    loading,
+    errors,
+    questions
+  }
+
+}
 
 
 export  function useSettings(id: string) {

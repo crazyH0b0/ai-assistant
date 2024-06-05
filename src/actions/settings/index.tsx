@@ -2,6 +2,76 @@
 import { prisma } from "@/server/db/client"
 import { auth, clerkClient, currentUser } from "@clerk/nextjs/server"
 
+
+// 获取 helpDesk 问答
+export async function onGetAllHelpDeskQuestions(id:string) {
+  const user = await currentUser()
+  if(!user) return auth().redirectToSignIn()
+    try {
+      const questions = await prisma.helpDesk.findMany({
+        where: {
+          id
+        },
+        select: {
+          question: true,
+          answer: true,
+          id: true
+        }
+      })
+
+      return {
+        status: 200,
+        message: '问答添加成功',
+        questions
+      }
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+
+  
+}
+
+// 创建 helpDesk 问答
+export async function onCreateHelpDeskQuestion(id:string, question:string, answer:string) {
+  const user = await currentUser()
+  if(!user) return auth().redirectToSignIn()
+  try {
+    const helpQuestion = await prisma.domain.update({
+      where: {
+        id
+      },
+      data: {
+        helpdesk: {
+          create: {
+            question,
+            answer
+          }
+        }
+      },
+      include: {
+        helpdesk: {
+          select: {
+            id: true,
+            question: true,
+            answer: true
+          }
+        }
+      }
+    })
+    if(helpQuestion) return {status: 200, message: '新的帮助问题已被添加', questions:helpQuestion.helpdesk}
+    
+    return {
+      status: 400,
+      message: '出错了~'
+    }
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
 // 删除域名
 export async function onDeletedUserDomain(id:string) {
   const user = await currentUser()

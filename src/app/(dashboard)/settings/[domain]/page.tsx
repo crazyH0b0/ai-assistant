@@ -1,5 +1,5 @@
 import { onGetCurrentDomain } from '@/actions/settings'
-import BotTraningForm from '@/components/forms/settings/bot-traning-form'
+import BotTraningForm from '@/components/forms/settings/bot-traning'
 import SettingsForm from '@/components/forms/settings/form'
 import InfoBar from '@/components/infobar'
 import { redirect } from 'next/navigation'
