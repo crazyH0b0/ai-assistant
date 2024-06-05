@@ -23,6 +23,7 @@ const DomainSettingPage =async ({params}: Props) => {
         name={domain.domains[0].name}
         />
 
+
       </div>
     </>
   )
