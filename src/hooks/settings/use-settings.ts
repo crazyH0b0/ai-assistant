@@ -1,14 +1,62 @@
 "use client"
-import { onChatBotImageUpdate, onCreateHelpDeskQuestion, onDeletedUserDomain, onGetAllHelpDeskQuestions, onUpdateDomain, onUpdatePassword, onUpdateWelcomeMessage } from "@/actions/settings"
+import { onChatBotImageUpdate, onCreateFilterQuestions, onCreateHelpDeskQuestion, onDeletedUserDomain, onGetAllFilterQuestions, onGetAllHelpDeskQuestions, onUpdateDomain, onUpdatePassword, onUpdateWelcomeMessage } from "@/actions/settings"
 import { useToast } from "@/components/ui/use-toast"
 import { ChangePasswordSchema } from "@/schemas/auth.schema"
-import { DomainSettingsSchema, HelpDeskQuestionsSchema } from "@/schemas/settings.schema"
+import { DomainSettingsSchema, FilterQuestionsSchema, HelpDeskQuestionsSchema } from "@/schemas/settings.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/navigation"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+
+export function useFilterQuestions(id: string) {
+  const {toast} = useToast()
+  const [loading, setLoading] = React.useState(false)
+  const [questions, setQuestions] = React.useState<{id:string, question: string}[]>([])
+
+  const {handleSubmit, reset, register, formState:{errors}} = useForm<z.infer<typeof FilterQuestionsSchema>>({
+    resolver: zodResolver(FilterQuestionsSchema),
+    mode: 'onChange'
+  })
+
+  const onAddFilterQuestions = handleSubmit(async (values) => {
+    setLoading(true)
+    const questions = await onCreateFilterQuestions(id, values.question)
+    
+    if(questions) {
+      setQuestions(questions.questions!)
+      toast({
+        title: questions.status === 200 ? '成功' : '失败',
+        description: questions.message
+      })
+      reset()
+      setLoading(false)
+    }
+    
+  })
+
+  const onGetQuestions = async () => {
+    setLoading(true)
+    const questions = await onGetAllFilterQuestions(id)
+    if(questions){
+      setQuestions(questions.questions!)
+      setLoading(false)
+    }
+  }
+
+  React.useEffect(()=>{
+    onGetQuestions()
+  }, [])
+
+  return {
+    loading,
+    register,
+    errors,
+    onAddFilterQuestions,
+    questions
+  }
+} 
 
 export function useHelpDesk(id: string) {
   const {toast} = useToast()

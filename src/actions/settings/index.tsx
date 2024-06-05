@@ -2,6 +2,62 @@
 import { prisma } from "@/server/db/client"
 import { auth, clerkClient, currentUser } from "@clerk/nextjs/server"
 
+// 查询过滤问题
+export async function onGetAllFilterQuestions(id:string) {
+  try {
+    const questions = await prisma.filterQuestions.findMany({
+      where: {
+        id
+      },
+      select: {
+        question: true,
+        id: true
+      },
+      orderBy: {
+        question: 'asc'
+      }
+    })
+
+    if(questions) return {status: 200, message: '', questions: questions}
+     return {status: 400, message: '出错了~'}
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+// 创建过滤问题
+export async function onCreateFilterQuestions(id:string, question:string) {
+  try {
+    const filterQuestion = await prisma.domain.update({
+      where: {
+        id
+      },
+      data: {
+        filterQuestions: {
+          create: {
+            question
+          }
+        }
+      },
+      include: {
+        filterQuestions: {
+          select: {
+            id: true,
+            question: true
+          }
+        }
+      }
+    })
+
+    if(filterQuestion) return {status: 200, message: '过滤问题添加成功', questions: filterQuestion.filterQuestions}
+    return {status: 400, message: '出错了~'}
+  } catch (error) {
+    console.log(error);
+    
+  }
+  
+}
 
 // 获取 helpDesk 问答
 export async function onGetAllHelpDeskQuestions(id:string) {
