@@ -5,6 +5,11 @@ import React from 'react'
 import { DomainUpdate } from './domain-update'
 import CodeSnippet from '@/components/settings/code-snippet'
 import PremiumBadge from '@/icons/premium-badge'
+import EditChatbotIcon from '@/components/settings/edit-chatbot-icon'
+import dynamic from 'next/dynamic'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
+import Loader from '@/components/loader'
 
 interface Props {
   id: string
@@ -16,6 +21,12 @@ interface Props {
     welcomeMessage: string | null
   } | null
 }
+
+const WelcomeMessage = dynamic(() => import('../../settings/welcome-message').then((props)=>props.default),
+{
+  ssr: false
+}
+)
 
 const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
   const {deleting, loading, onDeleteDomain, onUpdateSettings, register, errors} = useSettings(id)
@@ -44,13 +55,44 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
           </div>
         </div>
         <Separator orientation='horizontal'  />
-        <div className='grid grid-cols-2'>
-          <div className='col-span-1 flex flex-col gap-5'>
-            <EditChatbotIcon />
-            <WelcomeMessage />
+        <div className='grid md:grid-cols-2'>
+          <div className='col-span-1 flex flex-col gap-5 order-last md:order-1'>
+
+            <EditChatbotIcon
+            register={register}
+            errors={errors}
+            chatBot={chatBot}
+            />
+
+            <WelcomeMessage
+            message={chatBot?.welcomeMessage!}
+            register={register}
+            errors={errors}
+            />
 
           </div>
-        </div>
+
+          <div className='col-span-1 relative'>
+            <Image src={'/images/bot-ui.png'}
+            className='sticky top-0'
+            alt='bot-ui'
+            width={530}
+            height={769}
+            />
+
+          </div>
+        </div> 
+      </div>
+      <div className='flex gap-5 justify-end'>
+        <Button onClick={onDeleteDomain} variant={'destructive'}
+        type='button'
+        className='px-10 h-[50px]'
+        >
+          <Loader loading={deleting}>删除域名</Loader>
+        </Button>
+        <Button type='submit' className='w-[100px] h-[50px]'>
+        <Loader loading={loading}>保存</Loader> 
+        </Button>
       </div>
    
       
