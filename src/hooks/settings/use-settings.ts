@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 export function useFilterQuestions(id: string) {
+  
   const {toast} = useToast()
   const [loading, setLoading] = React.useState(false)
   const [questions, setQuestions] = React.useState<{id:string, question: string}[]>([])
@@ -96,7 +97,7 @@ export function useHelpDesk(id: string) {
     
   }
   React.useEffect(() => {
-    onGetAllHelpDeskQuestions(id)
+    onGetQuestions()
   }, [])
   
   
