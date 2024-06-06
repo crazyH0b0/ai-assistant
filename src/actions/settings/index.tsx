@@ -4,10 +4,12 @@ import { auth, clerkClient, currentUser } from "@clerk/nextjs/server"
 
 // 查询过滤问题
 export async function onGetAllFilterQuestions(id:string) {
+  console.log({id});
+  
   try {
     const questions = await prisma.filterQuestions.findMany({
       where: {
-        id
+        domainId:id
       },
       select: {
         question: true,
@@ -66,7 +68,7 @@ export async function onGetAllHelpDeskQuestions(id:string) {
     try {
       const questions = await prisma.helpDesk.findMany({
         where: {
-          id
+          domainId: id
         },
         select: {
           question: true,
@@ -74,7 +76,8 @@ export async function onGetAllHelpDeskQuestions(id:string) {
           id: true
         }
       })
-
+      console.log(1, questions);
+      
       return {
         status: 200,
         message: '问答添加成功',

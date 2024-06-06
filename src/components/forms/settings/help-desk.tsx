@@ -15,7 +15,6 @@ interface Props {
 
 const HelpDesk = ({id}: Props) => {
   const {register, errors, onSubmitQuestion, loading ,questions} = useHelpDesk(id)
-  console.log({questions});
   
   return (
     <Card className='w-full grid grid-cols-1 lg:grid-cols-2'>

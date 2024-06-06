@@ -46,7 +46,7 @@ export function useFilterQuestions(id: string) {
     }
   }
 
-  React.useEffect(()=>{
+  React.useEffect(()=>{    
     onGetQuestions()
   }, [])
 
@@ -87,8 +87,8 @@ export function useHelpDesk(id: string) {
     
   })
 
-  const onGetQuestions = async () => {
-    setLoading(true)
+  const onGetQuestions = async () => {    
+    setLoading(true)    
     const questions = await onGetAllHelpDeskQuestions(id)
     if(questions) {
       setQuestions(questions.questions)
@@ -96,7 +96,7 @@ export function useHelpDesk(id: string) {
     }
     
   }
-  React.useEffect(() => {
+  React.useEffect(() => {    
     onGetQuestions()
   }, [])
   
