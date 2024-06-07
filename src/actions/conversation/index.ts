@@ -1,6 +1,64 @@
 'use server';
 
+import { pusherServer } from '@/lib/utils';
 import { prisma } from '@/server/db/client';
+
+export const onRealTimeChat = async (chatroomId: string, message: string, id: string, role: 'assistant' | 'user') => {
+  pusherServer.trigger(chatroomId, 'realtime-mode', {
+    chat: {
+      message,
+      id,
+      role,
+    },
+  });
+};
+
+export async function onOwnerSendMessage(chatroom: string, message: string, role: 'assistant' | 'user') {
+  try {
+    const chat = await prisma.chatRoom.update({
+      where: { id: chatroom },
+      data: {
+        message: {
+          create: {
+            message,
+            role,
+          },
+        },
+      },
+      select: {
+        message: {
+          select: {
+            id: true,
+            role: true,
+            message: true,
+            createdAt: true,
+            seen: true,
+          },
+          orderBy: {
+            createdAt: 'desc',
+          },
+        },
+      },
+    });
+
+    if (chat) return chat;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function onViewUnReadMessages(id: string) {
+  try {
+    await prisma.chatMessage.updateMany({
+      where: { id },
+      data: {
+        seen: true,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export async function onGetChatMessages(id: string) {
   try {
