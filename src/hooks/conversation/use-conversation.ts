@@ -144,15 +144,17 @@ export function useConversation() {
 
   const [loading, setLoading] = React.useState(false);
 
+  // 当选中某个聊天室时，根据该聊天室的 ID 获取其相关聊天记录
   const onGetActiveChatMessages = async (id: string) => {
     try {
       setloadMessage(true);
       const messages = await onGetChatMessages(id);
 
       if (messages) {
+        // 将当前聊天的状态保存在 context 中
         setChatRoom(id);
         setloadMessage(false);
-        setChats(messages[0].message);
+        setChats(messages.message);
       }
     } catch (error) {
       console.log(error);
@@ -160,9 +162,12 @@ export function useConversation() {
   };
 
   React.useEffect(() => {
+    // 监听所有的 input 值变化
     const search = watch(async (values) => {
       setLoading(true);
+
       try {
+        // 更具域名 id 获取当前域名下的所有聊天室
         const rooms = await onGetDomainChatRooms(values.domain!);
         if (rooms) {
           setLoading(false);

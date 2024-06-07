@@ -60,9 +60,11 @@ export async function onViewUnReadMessages(id: string) {
   }
 }
 
+// 从数据库中获取聊天消息
 export async function onGetChatMessages(id: string) {
   try {
-    const messages = await prisma.chatRoom.findMany({
+    // TODO: 验证是使用 findUnique 还是 findMany
+    const messages = await prisma.chatRoom.findUnique({
       where: { id },
       select: {
         id: true,
@@ -88,6 +90,7 @@ export async function onGetChatMessages(id: string) {
   }
 }
 
+// 根据域名 id 获取全部的聊天室
 export async function onGetDomainChatRooms(id: string) {
   try {
     const domains = await prisma.domain.findUnique({
