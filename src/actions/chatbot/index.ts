@@ -11,6 +11,7 @@ const openai = new OpenAi({
   apiKey: process.env.OPEN_AI_KEY,
 });
 
+// 在指定的聊天房间中插入新的聊天消息。通过 update 操作向现有的 chatRoom 记录中 create 新的 message
 export const onStoreConversations = async (id: string, message: string, role: 'assistant' | 'user') => {
   await prisma.chatRoom.update({
     where: {
@@ -90,6 +91,7 @@ export const onAiChatBotAssistant = async (
       }
 
       if (customerEmail) {
+        // 查找数据库中是否有与该 customer 匹配的 customer 列表
         const checkCustomer = await prisma.domain.findUnique({
           where: {
             id,
@@ -145,6 +147,7 @@ export const onAiChatBotAssistant = async (
               },
             },
           });
+          // 创建新的 customer
           if (newCustomer) {
             console.log('new customer made');
             const response = {
@@ -159,14 +162,16 @@ export const onAiChatBotAssistant = async (
         if (checkCustomer && checkCustomer.customer[0].chatRoom[0].live) {
           await onStoreConversations(checkCustomer?.customer[0].chatRoom[0].id!, message, author);
 
-          onRealTimeChat(checkCustomer.customer[0].chatRoom[0].id, message, 'user', author);
+          // onRealTimeChat(checkCustomer.customer[0].chatRoom[0].id,
+          //    message, 'user', author);
 
+          // 该 customer 还没有发送过邮件
           if (!checkCustomer.customer[0].chatRoom[0].mailed) {
             const user = await clerkClient.users.getUser(checkCustomer.User?.clerkId!);
 
             onMailer(user.emailAddresses[0].emailAddress);
 
-            //update mail status to prevent spamming
+            //确保每个聊天室只能发送一次邮件，防止恶意 spam
             const mailed = await prisma.chatRoom.update({
               where: {
                 id: checkCustomer.customer[0].chatRoom[0].id,
