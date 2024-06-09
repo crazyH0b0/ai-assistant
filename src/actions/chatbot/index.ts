@@ -161,6 +161,8 @@ export const onAiChatBotAssistant = async (
             return { response };
           }
         }
+
+        // 代表人工实时回复，不需要 AI 接管
         if (checkCustomer && checkCustomer.customer[0].chatRoom[0].live) {
           await onStoreConversations(checkCustomer?.customer[0].chatRoom[0].id!, message, author);
 
@@ -198,6 +200,8 @@ export const onAiChatBotAssistant = async (
 
         await onStoreConversations(checkCustomer?.customer[0].chatRoom[0].id!, message, author);
 
+        // 如果响应中包含 (realtime) 关键字，
+        // 则将聊天房间状态更新为实时模式，以便用户能够与人工客服进行实时对话。
         const chatCompletion = await openai.chat.completions.create({
           messages: [
             {
@@ -239,6 +243,7 @@ export const onAiChatBotAssistant = async (
           model: 'gpt-3.5-turbo',
         });
 
+        // 检测到 AI 生成的聊天消息中包含 (realtime) 标记时，将聊天模式切换到实时模式
         if (chatCompletion.choices[0].message.content?.includes('(realtime)')) {
           const realtime = await prisma.chatRoom.update({
             where: {
@@ -249,6 +254,10 @@ export const onAiChatBotAssistant = async (
             },
           });
 
+          // 移除消息内容中的 (realtime) 标记
+          // 当 AI 生成的响应包含 (realtime) 标记时，
+          // 表示需要将聊天模式切换到实时模式。这个标记仅用于内部逻辑处理，并不应该显示给用户。
+          // 因此，需要在将响应内容发送给用户之前，将这个标记移除。
           if (realtime) {
             const response = {
               role: 'assistant',
@@ -260,6 +269,8 @@ export const onAiChatBotAssistant = async (
             return { response };
           }
         }
+
+        // 检测到聊天内容中包含 (complete) 标记时，更新客户回答的状态
         if (chat[chat.length - 1].content.includes('(complete)')) {
           const firstUnansweredQuestion = await prisma.customerResponses.findFirst({
             where: {
@@ -285,6 +296,7 @@ export const onAiChatBotAssistant = async (
           }
         }
 
+        // 处理聊天完成后生成的回复的逻辑。它检查聊天回复中是否包含 URL 链接
         if (chatCompletion) {
           const generatedLink = extractURLfromString(chatCompletion.choices[0].message.content as string);
 
@@ -315,6 +327,7 @@ export const onAiChatBotAssistant = async (
           return { response };
         }
       }
+      // 没有找到客户信息的情况（即客户匿名的情况）
       console.log('No customer');
       const chatCompletion = await openai.chat.completions.create({
         messages: [
