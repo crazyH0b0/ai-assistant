@@ -2,10 +2,10 @@
 
 import { extractEmailsFromString, extractURLfromString } from '@/lib/utils';
 import { onRealTimeChat } from '../conversation';
-import { onMailer } from '../mailer';
 import OpenAi from 'openai';
 import { clerkClient } from '@clerk/nextjs/server';
 import { prisma } from '@/server/db/client';
+import { onMailer } from '../mail';
 
 const openai = new OpenAi({
   apiKey: process.env.OPEN_AI_KEY,
@@ -85,13 +85,14 @@ export const onAiChatBotAssistant = async (
     });
     if (chatBotDomain) {
       const extractedEmail = extractEmailsFromString(message);
-      // 用户发送的内容有包含邮箱
+      // 检查用户发送的内容有包含邮箱
       if (extractedEmail) {
         customerEmail = extractedEmail[0];
       }
 
+      // 用户发送的内容有包含邮箱
       if (customerEmail) {
-        // 查找数据库中是否有与该 customer 匹配的 customer 列表
+        // 查找数据库中是否有与该 customer 发送的邮箱匹配的条目
         const checkCustomer = await prisma.domain.findUnique({
           where: {
             id,
@@ -147,7 +148,8 @@ export const onAiChatBotAssistant = async (
               },
             },
           });
-          // 创建新的 customer
+
+          // 创建 customer 成功
           if (newCustomer) {
             console.log('new customer made');
             const response = {
@@ -165,7 +167,7 @@ export const onAiChatBotAssistant = async (
           // onRealTimeChat(checkCustomer.customer[0].chatRoom[0].id,
           //    message, 'user', author);
 
-          // 该 customer 还没有发送过邮件
+          // 该 customer 所属的 chatroom 还没有被发送过邮件
           if (!checkCustomer.customer[0].chatRoom[0].mailed) {
             const user = await clerkClient.users.getUser(checkCustomer.User?.clerkId!);
 
