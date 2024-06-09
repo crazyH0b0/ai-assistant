@@ -158,6 +158,7 @@ export function useChatBot() {
 
       if (response) {
         setOnAiTyping(false);
+        // 人工接管
         if (response.live) {
           setOnRealTime((prev) => ({
             ...prev,
