@@ -55,7 +55,8 @@ const Bubble = ({ message, createdAt }: Props) => {
         )}
         {image ? (
           <div className="relative aspect-square">
-            <Image src={`https://ucarecdn.com/${image[0]}/`} fill alt="image" />
+            {/* <Image src={`https://ucarecdn.com/${image[0]}/`} fill alt="image" /> */}
+            <Image src="" fill alt="image" />
           </div>
         ) : (
           <p className="text-sm">

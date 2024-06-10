@@ -72,7 +72,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
   ) => {
     console.log(errors);
     return (
-      <div className="h-[670px] w-[450px] flex flex-col bg-white rounded-xl mr-[80px] border-[1px] overflow-hidden">
+      <div className="h-[670px] mt-30 w-[450px] flex flex-col bg-white rounded-xl mr-[80px] border-[1px] overflow-hidden">
         <div className="flex justify-between px-4 pt-4">
           <div className="flex gap-2">
             <Avatar className="w-20 h-20">
@@ -86,12 +86,13 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
             </div>
           </div>
           <div className="relative w-16 h-16">
-            <Image
+            {/* <Image
               src="https://ucarecdn.com/019dd17d-b69b-4dea-a16b-60e0f25de1e9/propuser.png"
               fill
               alt="users"
               objectFit="contain"
-            />
+            /> */}
+            <Image src="" fill alt="users" objectFit="contain" />
           </div>
         </div>
         <TabsMenu triggers={BOT_TABS_MENU} className=" bg-transparent border-[1px] border-border m-2">
@@ -145,7 +146,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
           </TabsContent>
         </TabsMenu>
         <div className="flex justify-center ">
-          <p className="text-gray-400 text-xs">Powered By Web Prodigies</p>
+          <p className="text-gray-400 text-xs">Powered By shiwo6324</p>
         </div>
       </div>
     );

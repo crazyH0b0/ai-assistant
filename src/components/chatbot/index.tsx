@@ -23,7 +23,7 @@ const AiChatBot = () => {
     errors,
   } = useChatBot();
   return (
-    <div className="h-screen flex flex-col justify-end items-end gap-4">
+    <div className="h-screen  flex flex-col justify-end items-end ">
       {botOpened && (
         <BotWindow
           errors={errors}
@@ -49,8 +49,9 @@ const AiChatBot = () => {
         onClick={onOpenChatBot}
       >
         {currentBot?.chatBot?.icon ? (
-          <Image src={`https://ucarecdn.com/${currentBot.chatBot.icon}/`} alt="bot" fill />
+          <Image src="" alt="bot" fill />
         ) : (
+          // <Image src={`https://ucarecdn.com/${currentBot.chatBot.icon}/`} alt="bot" fill />
           <BotIcon />
         )}
       </div>

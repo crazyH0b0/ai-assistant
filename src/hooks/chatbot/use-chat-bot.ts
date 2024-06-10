@@ -93,9 +93,10 @@ export function useChatBot() {
   React.useEffect(() => {
     window.addEventListener('message', (e) => {
       console.log(e.data);
+
       const botId = e.data;
       // 避免多次访问 chatbot 的信息
-      if (limitRequest < 1 && typeof botId == 'string') {
+      if (limitRequest < 1 && typeof botId === 'string') {
         onGetDomainChatBot(botId);
         limitRequest++;
       }
@@ -153,6 +154,11 @@ export function useChatBot() {
       }
 
       setOnAiTyping(true);
+      // const res = {
+      //   role: 'assistant',
+      //   content: `Welcome aboard`,
+      // };
+      console.log({ currentBotId });
 
       const response = await onAiChatBotAssistant(currentBotId!, onChats, 'user', values.content);
 
