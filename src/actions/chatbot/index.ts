@@ -9,6 +9,7 @@ import { onMailer } from '../mail';
 
 const openai = new OpenAi({
   apiKey: process.env.OPEN_AI_KEY,
+  baseURL: process.env.OPEN_AI_BASE_URL,
 });
 
 // 在指定的聊天房间中插入新的聊天消息。通过 update 操作向现有的 chatRoom 记录中 create 新的 message
@@ -350,6 +351,7 @@ export const onAiChatBotAssistant = async (
         ],
         model: 'gpt-3.5-turbo',
       });
+      console.log({ chatCompletion });
 
       if (chatCompletion) {
         const response = {
