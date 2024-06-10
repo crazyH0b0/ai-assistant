@@ -154,11 +154,6 @@ export function useChatBot() {
       }
 
       setOnAiTyping(true);
-      // const res = {
-      //   role: 'assistant',
-      //   content: `Welcome aboard`,
-      // };
-      console.log({ currentBotId });
 
       const response = await onAiChatBotAssistant(currentBotId!, onChats, 'user', values.content);
 
