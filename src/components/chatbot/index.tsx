@@ -5,6 +5,7 @@ import { BotIcon } from '@/icons/bot-icon';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
+import { BotWindow } from './window';
 
 const AiChatBot = () => {
   const {

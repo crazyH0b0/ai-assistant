@@ -162,7 +162,7 @@ export const onAiChatBotAssistant = async (
           }
         }
 
-        // 代表人工实时回复，不需要 AI 接管
+        // chatroom 状态为 live，不需要 AI 接管
         if (checkCustomer && checkCustomer.customer[0].chatRoom[0].live) {
           await onStoreConversations(checkCustomer?.customer[0].chatRoom[0].id!, message, author);
 
@@ -198,6 +198,7 @@ export const onAiChatBotAssistant = async (
           };
         }
 
+        //  AI 接管
         await onStoreConversations(checkCustomer?.customer[0].chatRoom[0].id!, message, author);
 
         // 如果响应中包含 (realtime) 关键字，
@@ -223,7 +224,7 @@ export const onAiChatBotAssistant = async (
                 .map((questions) => questions.question)
                 .join(', ')}]
 
-              if the customer says something out of context or inapporpriate. Simply say this is beyond you and you will get a real user to continue the conversation. And add a keyword (realtime) at the end.
+              if the customer says something out of context or inappropriate. Simply say this is beyond you and you will get a real user to continue the conversation. And add a keyword (realtime) at the end.
 
               if the customer agrees to book an appointment send them this link http://localhost:3000/portal/${id}/appointment/${
                 checkCustomer?.customer[0].id
