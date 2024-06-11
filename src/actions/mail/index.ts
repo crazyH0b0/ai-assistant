@@ -15,6 +15,7 @@ export const onMailer = (email: string) => {
   });
 
   const mailOptions = {
+    from: '1327185450@qq.com',
     to: email,
     subject: 'Realtime Support',
     text: 'One of your customers on Corinna, just switched to realtime mode',
