@@ -1,4 +1,5 @@
 import { onAiChatBotAssistant, onGetCurrentChatBot } from '@/actions/chatbot';
+import { useChatContext } from '@/context/use-chat-context';
 import { postToParent, pusherClient } from '@/lib/utils';
 import { ChatBotMessageSchema } from '@/schemas/conversation.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -92,8 +93,6 @@ export function useChatBot() {
   // 监听消息事件，获取聊天机器人ID
   React.useEffect(() => {
     window.addEventListener('message', (e) => {
-      console.log(e.data);
-
       const botId = e.data;
       // 避免多次访问 chatbot 的信息
       if (limitRequest < 1 && typeof botId === 'string') {
@@ -105,6 +104,9 @@ export function useChatBot() {
 
   // 开始聊天
   const onStartChatting = handleSubmit(async (values) => {
+    // 生成唯一标识符
+    const messageId = crypto.randomUUID();
+
     console.log('ALL VALUES', values);
     // 如果上传有图片
     if (values.image.length) {
@@ -128,6 +130,8 @@ export function useChatBot() {
 
       if (response) {
         setOnAiTyping(false);
+        console.log({ onRealTime });
+
         if (response.live) {
           setOnRealTime((prev) => ({
             ...prev,
@@ -143,30 +147,42 @@ export function useChatBot() {
 
     // 处理文本消息
     if (values.content) {
-      if (!onRealTime?.mode) {
-        setOnChats((prev: any) => [
-          ...prev,
-          {
-            role: 'user',
-            content: values.content,
-          },
-        ]);
-      }
+      // TODO: 在此处验证是否为实时
 
+      // 非人工实时
+      // if (!onRealTime?.mode) {
+      //   setOnChats((prev: any) => [
+      //     ...prev,
+      //     {
+      //       role: 'user',
+      //       content: values.content,
+      //     },
+      //   ]);
+      // }
+      setOnChats((prev: any) => [
+        ...prev,
+        {
+          role: 'user',
+          content: values.content,
+        },
+      ]);
       setOnAiTyping(true);
 
       const response = await onAiChatBotAssistant(currentBotId!, onChats, 'user', values.content);
 
       if (response) {
+        console.log('livemode', response.live, response);
         setOnAiTyping(false);
         // 人工接管
         if (response.live) {
+          console.log('人工~');
           setOnRealTime((prev) => ({
             ...prev,
             chatroom: response.chatRoom,
             mode: response.live,
           }));
         } else {
+          console.log('非人工~');
           setOnChats((prev: any) => [...prev, response.response]);
         }
       }
@@ -201,25 +217,26 @@ export const useRealTime = (
     >
   >
 ) => {
-  // const counterRef = React.useRef(1);
-  // React.useEffect(() => {
-  //   pusherClient.subscribe(chatRoom);
-  //   pusherClient.bind('realtime-mode', (data: any) => {
-  //     console.log('✅', data);
-  //     if (counterRef.current !== 1) {
-  //       setChats((prev: any) => [
-  //         ...prev,
-  //         {
-  //           role: data.chat.role,
-  //           content: data.chat.message,
-  //         },
-  //       ]);
-  //     }
-  //     counterRef.current += 1;
-  //   });
-  //   return () => {
-  //     pusherClient.unbind('realtime-mode');
-  //     pusherClient.unsubscribe(chatRoom);
-  //   };
-  // }, []);
+  const counterRef = React.useRef(1);
+  React.useEffect(() => {
+    pusherClient.subscribe(chatRoom);
+    pusherClient.bind('realtime-mode', (data: any) => {
+      if (counterRef.current !== 1) {
+        // 解决消息重复的问题
+        if (data.chat.id === 'user') return;
+        setChats((prev: any) => [
+          ...prev,
+          {
+            role: data.chat.role,
+            content: data.chat.message,
+          },
+        ]);
+      }
+      counterRef.current += 1;
+    });
+    return () => {
+      pusherClient.unbind('realtime-mode');
+      pusherClient.unsubscribe(chatRoom);
+    };
+  }, []);
 };
