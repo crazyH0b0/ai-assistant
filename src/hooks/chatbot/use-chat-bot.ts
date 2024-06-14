@@ -79,13 +79,19 @@ export function useChatBot() {
     const chatbot = await onGetCurrentChatBot(id);
     // TODO: 再次进入聊天室发送欢迎信息?
     if (chatbot) {
-      setOnChats((prev) => [
-        ...prev,
+      setOnChats([
         {
           role: 'assistant',
           content: chatbot.chatBot?.welcomeMessage!,
         },
       ]);
+      // setOnChats((prev) => [
+      //   ...prev,
+      //   {
+      //     role: 'assistant',
+      //     content: chatbot.chatBot?.welcomeMessage!,
+      //   },
+      // ]);
       setCurrentBot(chatbot);
       setLoading(false);
     }
