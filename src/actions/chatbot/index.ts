@@ -90,6 +90,7 @@ export const onAiChatBotAssistant = async (
       if (extractedEmail) {
         customerEmail = extractedEmail[0];
       }
+      console.log({ chat }, { customerEmail });
 
       // 用户发送的内容有包含邮箱
       if (customerEmail) {
@@ -163,12 +164,11 @@ export const onAiChatBotAssistant = async (
           }
         }
 
-        // chatroom 状态为 live，不需要 AI 接管
+        // chatroom 状态为 live，不需要 AI 接管，则直接通过 pusher 进行 socket 通信
         if (checkCustomer && checkCustomer.customer[0].chatRoom[0].live) {
           await onStoreConversations(checkCustomer?.customer[0].chatRoom[0].id!, message, author);
 
-          // onRealTimeChat(checkCustomer.customer[0].chatRoom[0].id,
-          //    message, 'user', author);
+          onRealTimeChat(checkCustomer.customer[0].chatRoom[0].id, message, 'user', author);
 
           // 该 customer 所属的 chatroom 还没有被发送过邮件
           if (!checkCustomer.customer[0].chatRoom[0].mailed) {
@@ -329,8 +329,8 @@ export const onAiChatBotAssistant = async (
           return { response };
         }
       }
+
       // 没有找到客户信息的情况（即客户匿名的情况）
-      console.log('No customer');
       const chatCompletion = await openai.chat.completions.create({
         messages: [
           {
@@ -351,12 +351,12 @@ export const onAiChatBotAssistant = async (
         ],
         model: 'gpt-3.5-turbo',
       });
-      console.log({ chatCompletion });
 
       if (chatCompletion) {
         const response = {
           role: 'assistant',
           content: chatCompletion.choices[0].message.content,
+          live: false,
         };
 
         return { response };

@@ -35,28 +35,29 @@ export function useChatWindow() {
     onScrollToBottom();
   }, [chats, messageWindowRef]);
 
-  // React.useEffect(() => {
-  //   if (chatRoom) {
-  //     pusherClient.subscribe(chatRoom);
-  //     pusherClient.bind('realtime-mode', (data: any) => {
-  //       setChats((prev) => [...prev, data.chat]);
-  //     });
+  React.useEffect(() => {
+    if (chatRoom) {
+      pusherClient.subscribe(chatRoom);
+      pusherClient.bind('realtime-mode', (data: any) => {
+        setChats((prev) => [...prev, data.chat]);
+      });
 
-  //     return () => {
-  //       pusherClient.unbind('realtime-mode');
-  //       pusherClient.unsubscribe(chatRoom);
-  //     };
-  //   }
-  // }, [chatRoom]);
+      return () => {
+        pusherClient.unbind('realtime-mode');
+        pusherClient.unsubscribe(chatRoom);
+      };
+    }
+  }, [chatRoom]);
 
+  // 真人发送
   const onHandleSentMessage = handleSubmit(async (values) => {
     try {
       reset();
       const message = await onOwnerSendMessage(chatRoom!, values.content!, 'assistant');
       if (message) {
-        setChats((prev) => [...prev, message.message[0]]);
+        // setChats((prev) => [...prev, message.message[0]]);
 
-        // await onRealTimeChat(chatRoom!, message.message[0].message, message.message[0].id, 'assistant');
+        await onRealTimeChat(chatRoom!, message.message[0].message, message.message[0].id, 'assistant');
       }
     } catch (error) {
       console.log(error);
