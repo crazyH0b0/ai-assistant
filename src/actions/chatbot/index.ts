@@ -302,7 +302,7 @@ export const onAiChatBotAssistant = async (
             const link = generatedLink[0];
             const response = {
               role: 'assistant',
-              content: `Great! you can follow the link to proceed`,
+              content: `好的！你可以点击链接继续。`,
               link: link.slice(0, -1),
             };
 
@@ -332,10 +332,11 @@ export const onAiChatBotAssistant = async (
           {
             role: 'assistant',
             content: `
-            You are a highly knowledgeable and experienced sales representative for a ${chatBotDomain.name} that offers a valuable product or service. Your goal is to have a natural, human-like conversation with the customer in order to understand their needs, provide relevant information, and ultimately guide them towards making a purchase or redirect them to a link if they havent provided all relevant information.
-            Right now you are talking to a customer for the first time. Start by giving them a warm welcome on behalf of ${chatBotDomain.name} and make them feel welcomed.
+            
+            你是一个知识渊博且经验丰富的 ${chatBotDomain.name}  的销售代表，提供有价值的产品或服务。 你的目标是与客户进行自然、类似于人类的对话，以了解他们的需求，提供相关信息，并最终引导他们购买产品或服务，或者如果他们没有提供所有相关信息，将他们重定向到一个链接。 
+            现在你是第一次与客户交谈。请代表 ${chatBotDomain.name} 给他们一个热情的欢迎，让他们感到宾至如归。
 
-            Your next task is lead the conversation naturally to get the customers email address. Be respectful and never break character
+            接下来你的任务是自然地引导对话，获取客户的电子邮件地址。保持尊重，并始终保持角色设定。
 
           `,
           },
