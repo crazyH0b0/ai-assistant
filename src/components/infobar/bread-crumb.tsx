@@ -1,32 +1,20 @@
-'use client'
+'use client';
 
-import useSidebar from '@/hooks/sidebar/use-sidebar'
-import React from 'react'
-import { Switch } from '../ui/switch'
-import Loader from '../loader'
+import useSidebar from '@/hooks/sidebar/use-sidebar';
+import React from 'react';
+import { Switch } from '../ui/switch';
+import Loader from '../loader';
 
-type Props = {}
+type Props = {};
 
 const BreadCrumb = (props: Props) => {
-  const {
-    chatRoom,
-    expand,
-    loading,
-    onActivateRealtime,
-    onExpand,
-    page,
-    onSignOut,
-    realtime,
-  } = useSidebar()
+  const { chatRoom, expand, loading, onActivateRealtime, onExpand, page, onSignOut, realtime } = useSidebar();
   return (
     <div className="flex flex-col ">
       <div className="flex gap-5 items-center">
-        <h2 className="text-3xl font-bold capitalize">title</h2>
+        {/* <h2 className="text-3xl font-bold capitalize">1</h2> */}
         {page === 'conversation' && chatRoom && (
-          <Loader
-            loading={loading}
-            className="p-0 inline"
-          >
+          <Loader loading={loading} className="p-0 inline">
             <Switch
               defaultChecked={realtime}
               onClick={(e) => onActivateRealtime(e)}
@@ -36,25 +24,20 @@ const BreadCrumb = (props: Props) => {
         )}
       </div>
       <p className="text-gray-500 text-sm">
-         {
-         page == 'settings'
-          ? 'Manage your account settings, preferences and integrations'
+        {page == 'settings'
+          ? '管理账户设置和偏好'
           : page == 'dashboard'
-          ? 'A detailed overview of your metrics, usage, customers and more'
-          : page == 'appointment'
-          ? 'View and edit all your appointments'
-          : page == 'email-marketing'
-          ? 'Send bulk emails to your customers'
-          : page == 'integration'
-          ? 'Connect third-party applications into Corinna-AI'
-          :
-          'Modify domain settings, change chatbot options, enter sales questions and train your bot to do what you want it to.'
-           } 
-      Modify domain settings, change chatbot options, enter sales questions and train your bot to do what you want it to.
-
+            ? 'A detailed overview of your metrics, usage, customers and more'
+            : page == 'appointment'
+              ? '查看和编辑预约'
+              : page == 'email-marketing'
+                ? '批量发送邮件给您的客户'
+                : page == 'integration'
+                  ? 'Connect third-party applications into Corinna-AI'
+                  : '修改域名设置，改变聊天机器人的选项，输入问题并训练您的机器人以实现您想要的功能。'}
       </p>
     </div>
-  )
-}
+  );
+};
 
-export default BreadCrumb
+export default BreadCrumb;

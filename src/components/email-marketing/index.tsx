@@ -68,7 +68,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
       <div>
         <div className="flex gap-3 justify-end">
           <Button disabled={isSelected.length == 0} onClick={onAddCustomersToCampaign}>
-            <Plus /> Add to campaign
+            <Plus /> 添加到营销活动
           </Button>
           <Modal
             title="Create a new campaign"
@@ -76,7 +76,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
             trigger={
               <Card className="flex gap-2 items-center px-3 cursor-pointer text-sm">
                 <Loader loading={false}>
-                  <Plus /> Create Campaign
+                  <Plus /> 创建营销活动
                 </Loader>
               </Card>
             }
@@ -91,7 +91,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                 type="text"
               />
               <Button className="w-full" disabled={loading} type="submit">
-                <Loader loading={loading}>Create Campaign</Loader>
+                <Loader loading={loading}>创建营销活动</Loader>
               </Button>
             </form>
           </Modal>
@@ -113,23 +113,23 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                       <div className="flex gap-2 items-center">
                         <CalIcon />
                         <CardDescription>
-                          Created {getMonthName(camp.createdAt.getMonth())} {camp.createdAt.getDate()}th
+                          创建 {getMonthName(camp.createdAt.getMonth())} {camp.createdAt.getDate()}th
                         </CardDescription>
                       </div>
                       <div className="flex gap-2">
                         <PersonIcon />
-                        <CardDescription>{camp.customers.length} customers added</CardDescription>
+                        <CardDescription>{camp.customers.length} 顾客添加成功</CardDescription>
                       </div>
                     </div>
                     <div className="flex w-full justify-between items-center">
                       <CardTitle className="text-xl">{camp.name}</CardTitle>
                       <div className="flex gap-3">
                         <Modal
-                          title="Edit Email"
+                          title="编辑邮件"
                           description="This email will be sent to campaign members"
                           trigger={
                             <Card className="rounded-lg cursor-pointer bg-grandis py-2 px-5 font-semibold text-sm hover:bg-orange text-gray-700">
-                              Edit Email
+                              编辑邮件
                             </Card>
                           }
                         >
@@ -151,7 +151,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                             )
                           }
                         >
-                          Send
+                          发送
                         </Button>
                       </div>
                     </div>

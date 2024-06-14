@@ -15,33 +15,34 @@ type SIDE_BAR_MENU_PROPS = {
 };
 
 export const SIDE_BAR_MENU: SIDE_BAR_MENU_PROPS[] = [
+  // {
+  //   label: '首页',
+  //   icon: <DashboardIcon />,
+  //   path: 'dashboard',
+  // },
   {
-    label: 'Dashboard',
-    icon: <DashboardIcon />,
-    path: 'dashboard',
-  },
-  {
-    label: 'Conversations',
-    icon: <ChatIcon />,
-    path: 'conversation',
-  },
-  {
-    label: 'Integrations',
-    icon: <IntegrationsIcon />,
-    path: 'integration',
-  },
-  {
-    label: 'Settings',
+    label: '设置',
     icon: <SettingsIcon />,
     path: 'settings',
   },
   {
-    label: 'Appointments',
+    label: '对话',
+    icon: <ChatIcon />,
+    path: 'conversation',
+  },
+  // {
+  //   label: 'Integrations',
+  //   icon: <IntegrationsIcon />,
+  //   path: 'integration',
+  // },
+
+  {
+    label: '预约',
     icon: <CalIcon />,
     path: 'appointment',
   },
   {
-    label: 'Email Marketing',
+    label: '邮件营销',
     icon: <EmailIcon />,
     path: 'email-marketing',
   },
