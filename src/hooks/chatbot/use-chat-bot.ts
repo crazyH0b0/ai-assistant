@@ -62,6 +62,7 @@ export function useChatBot() {
 
   // 分别在聊天窗口打开时调用
   React.useEffect(() => {
+    // 动态调整 iframe 大小
     postToParent(
       JSON.stringify({
         width: botOpened ? 550 : 80,
@@ -92,9 +93,10 @@ export function useChatBot() {
 
   // 监听消息事件，获取聊天机器人ID
   React.useEffect(() => {
+    // iframe 触发 postMessage 时执行,传入域名 id
     window.addEventListener('message', (e) => {
       const botId = e.data;
-      // 避免多次访问 chatbot 的信息
+      // 避免多次请求 chatbot 的信息
       if (limitRequest < 1 && typeof botId === 'string') {
         onGetDomainChatBot(botId);
         limitRequest++;
@@ -147,18 +149,6 @@ export function useChatBot() {
 
     // 处理文本消息
     if (values.content) {
-      // TODO: 在此处验证是否为实时
-
-      // 非人工实时
-      // if (!onRealTime?.mode) {
-      //   setOnChats((prev: any) => [
-      //     ...prev,
-      //     {
-      //       role: 'user',
-      //       content: values.content,
-      //     },
-      //   ]);
-      // }
       setOnChats((prev: any) => [
         ...prev,
         {
@@ -171,18 +161,16 @@ export function useChatBot() {
       const response = await onAiChatBotAssistant(currentBotId!, onChats, 'user', values.content);
 
       if (response) {
-        console.log('livemode', response.live, response);
         setOnAiTyping(false);
         // 人工接管
         if (response.live) {
-          console.log('人工~');
           setOnRealTime((prev) => ({
             ...prev,
             chatroom: response.chatRoom,
             mode: response.live,
           }));
         } else {
-          console.log('非人工~');
+          // 将返回的 openai 响应消息添加到数组中
           setOnChats((prev: any) => [...prev, response.response]);
         }
       }
@@ -221,17 +209,17 @@ export const useRealTime = (
   React.useEffect(() => {
     pusherClient.subscribe(chatRoom);
     pusherClient.bind('realtime-mode', (data: any) => {
-      if (counterRef.current !== 1) {
-        // 解决消息重复的问题
-        if (data.chat.id === 'user') return;
-        setChats((prev: any) => [
-          ...prev,
-          {
-            role: data.chat.role,
-            content: data.chat.message,
-          },
-        ]);
-      }
+      // if (counterRef.current !== 1) {
+      // 解决消息重复的问题
+      if (data.chat.id === 'user') return;
+      setChats((prev: any) => [
+        ...prev,
+        {
+          role: data.chat.role,
+          content: data.chat.message,
+        },
+      ]);
+      // }
       counterRef.current += 1;
     });
     return () => {
