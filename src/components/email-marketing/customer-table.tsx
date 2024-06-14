@@ -42,14 +42,14 @@ export const CustomerTable = ({ domains, onSelect, select, onId, id }: CustomerT
             <TableCell>{c.email}</TableCell>
             <TableCell>
               <SideSheet
-                title="Answers"
-                description="Customer answers are stored by the bot when your customers respond back to the questions asked by the bot."
+                title="答案"
+                description="当客户回复机器人所提出的问题时，客户的问题会被存储"
                 trigger={
                   <Card
                     className="bg-grandis py-2 px-4 cursor-pointer text-gray-700 hover:bg-orange"
                     onClick={() => onId(c.id)}
                   >
-                    View
+                    查看
                   </Card>
                 }
               >
