@@ -16,22 +16,22 @@ type EditEmailProps = {
 };
 
 export const EditEmail = ({ id, onCreate, errors, register, setDefault }: EditEmailProps) => {
-  const { loading, template } = useEditEmail(id);
-  setDefault('description', template ? JSON.parse(template) : '');
+  const { loading } = useEditEmail(id);
+
   return (
     <form onSubmit={onCreate} className="flex flex-col gap-3">
       <Loader loading={loading}>
         <FormGenerator
           name="description"
-          label="Message"
+          label="内容"
           register={register}
           errors={errors}
           inputType="textarea"
           lines={10}
-          placeholder="your email description"
+          placeholder="邮件内容..."
           type="text"
         />
-        <Button>Save</Button>
+        <Button>保存</Button>
       </Loader>
     </form>
   );

@@ -68,12 +68,14 @@ export const useEmailMarketing = () => {
       if (emailTemplate) {
         toast({
           title: 'Success',
-          description: emailTemplate.message,
+          description: '邮箱模板创建成功！',
         });
-        setEditing(false);
       }
+      setValue('description', values.description);
     } catch (error) {
       console.log(error);
+    } finally {
+      setEditing(false);
     }
   });
 
@@ -187,9 +189,10 @@ export const useEditEmail = (id: string) => {
       if (email) {
         setTemplate(email);
       }
-      setLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
