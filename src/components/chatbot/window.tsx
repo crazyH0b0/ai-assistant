@@ -129,8 +129,8 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
           <TabsContent value="帮助台">
             <div className="h-[485px] overflow-y-auto overflow-x-hidden p-4 flex flex-col gap-4">
               <div>
-                <CardTitle>Help Desk</CardTitle>
-                <CardDescription>Browse from a list of questions people usually ask.</CardDescription>
+                <CardTitle>帮助台</CardTitle>
+                <CardDescription>浏览常见问题列表。</CardDescription>
               </div>
               <Separator orientation="horizontal" />
 
