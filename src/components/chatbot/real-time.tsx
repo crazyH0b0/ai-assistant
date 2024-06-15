@@ -18,7 +18,7 @@ type Props = {
 const RealTimeMode = ({ chatRoomId, setChats }: Props) => {
   useRealTime(chatRoomId, setChats);
 
-  return <Card className="px-3 rounded-full py-1 bg-orange font-bold text-white text-sm">Real Time</Card>;
+  return <Card className="px-3 rounded-full py-1 bg-orange font-bold text-white text-sm">人工实时</Card>;
 };
 
 export default RealTimeMode;
