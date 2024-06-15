@@ -33,7 +33,7 @@ const Page = async (props: Props) => {
         <div className="lg:col-span-2 overflow-y-auto">
           <AllAppointments bookings={domainBookings?.bookings} />
         </div>
-        <div className="col-span-1">
+        <div className="col-span-2 ">
           <Section label="今日预约" message="今天的所有预订如下所示" />
           {bookingsExistToday.length ? (
             bookingsExistToday.map((booking) => (
@@ -48,7 +48,7 @@ const Page = async (props: Props) => {
                         创建
                         <br />
                         {booking.createdAt.getHours()} {booking.createdAt.getMinutes()}{' '}
-                        {booking.createdAt.getHours() > 12 ? 'PM' : 'AM'}
+                        {booking.createdAt.getHours() > 12 ? '下午' : '上午'}
                       </p>
                       <p className="text-sm">
                         域名 <br />

@@ -74,7 +74,7 @@ export const onBookNewAppointment = async (
     });
 
     if (booking) {
-      return { status: 200, message: 'Booking created' };
+      return { status: 200, message: '预约成功~' };
     }
   } catch (error) {
     console.log(error);

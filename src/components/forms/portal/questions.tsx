@@ -18,7 +18,7 @@ const QuestionsForm = ({ questions, register, error, onNext }: Props) => {
   return (
     <div className="flex flex-col gap-5 justify-center">
       <div className="flex justify-center">
-        <h2 className="text-4xl font-bold mb-5">Details</h2>
+        <h2 className="text-4xl font-bold mb-5">回答信息</h2>
       </div>
       {questions.map((question) => (
         <FormGenerator
@@ -30,12 +30,12 @@ const QuestionsForm = ({ questions, register, error, onNext }: Props) => {
           label={question.question}
           type="text"
           inputType="input"
-          placeholder={question.answered || 'Not answered'}
+          placeholder={question.answered || '回答为空'}
         />
       ))}
 
       <Button className="" type="button" onClick={onNext}>
-        Next
+        下一步
       </Button>
     </div>
   );

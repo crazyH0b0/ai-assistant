@@ -52,8 +52,6 @@ const PortalSteps = ({
   slot,
   bookings,
 }: Props) => {
-  console.log(step, 'asdasdsa');
-
   if (step == 1) {
     return <QuestionsForm register={register} error={error} onNext={onNext} questions={questions} />;
   }
@@ -74,15 +72,15 @@ const PortalSteps = ({
   }
 
   if (step == 2 && type == 'Payment') {
-    return <div>11</div>;
+    return <div>开发中</div>;
   }
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <h2 className="font-bold text-gray-600 text-4xl">Thank You</h2>
+      <h2 className="font-bold text-gray-600 text-4xl">感谢</h2>
       <p className="text-center">
-        Thank you for taking the time to fill in this form. We look forward to
-        <br /> speaking to you soon.
+        谢谢您抽出宝贵的时间填写这份表格
+        <br /> 我们会尽快联系您
       </p>
     </div>
   );

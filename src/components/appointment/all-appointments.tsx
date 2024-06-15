@@ -32,25 +32,25 @@ const AllAppointments = ({ bookings }: Props) => {
             <TableCell>{booking.email}</TableCell>
             <TableCell>
               <div>
-                {getMonthName(booking.date.getMonth())} {booking.date.getDate()} {booking.date.getFullYear()}
+                {booking.date.getFullYear()} {getMonthName(booking.date.getMonth())} {booking.date.getDate()}
               </div>
-              <div className="uppercase">{booking.slot}</div>
+              <div className="">{booking.slot}</div>
             </TableCell>
             <TableCell>
               <div>
-                {getMonthName(booking.createdAt.getMonth())} {booking.createdAt.getDate()}{' '}
-                {booking.createdAt.getFullYear()}
+                {booking.createdAt.getFullYear()} {getMonthName(booking.createdAt.getMonth())}
+                {booking.createdAt.getDate()}{' '}
               </div>
               <div>
                 {booking.createdAt.getHours()} {booking.createdAt.getMinutes()}{' '}
-                {booking.createdAt.getHours() > 12 ? 'PM' : 'AM'}
+                {booking.createdAt.getHours() > 12 ? '下午' : '上午'}
               </div>
             </TableCell>
             <TableCell className="text-right">{booking.Customer?.Domain?.name}</TableCell>
           </TableRow>
         ))
       ) : (
-        <CardDescription>No Appointments</CardDescription>
+        <CardDescription>无预约</CardDescription>
       )}
     </DataTable>
   );

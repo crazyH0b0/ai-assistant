@@ -29,14 +29,14 @@ const BookAppointmentDate = ({ date, onBooking, onBack, register, onSlot, curren
   return (
     <div className="flex flex-col gap-5 justify-center">
       <div className="flex justify-center">
-        <h2 className="text-4xl font-bold mb-5">Book a meeting</h2>
+        <h2 className="text-4xl font-bold mb-5">预约联系</h2>
       </div>
       <div className="flex gap-10 flex-col sm:flex-row">
         <div className="w-[300px]">
-          <h6>Discovery Call</h6>
+          <h6>Lorem ipsum dolor</h6>
           <CardDescription>
-            During this call, we aim to explore potential avenues for partnership, promotional opportunities, or any
-            other means through which we can contribute to the success of your company.
+            amet consectetur adipisicing elit. Consequuntur odio rem culpa harum, unde facilis, inventore ipsum corporis
+            est quaerat laudantium, perspiciatis dolor? Architecto vitae voluptate quas animi quia aliquid.
           </CardDescription>
         </div>
         <div>
@@ -82,10 +82,10 @@ const BookAppointmentDate = ({ date, onBooking, onBack, register, onSlot, curren
       </div>
       <div className="flex gap-5 justify-center mt-5">
         <Button type="button" onClick={onBack} variant={'outline'}>
-          Edit Questions?
+          编辑回答信息
         </Button>
         <Button>
-          <Loader loading={loading}>Book Now</Loader>
+          <Loader loading={loading}>预约</Loader>
         </Button>
       </div>
     </div>

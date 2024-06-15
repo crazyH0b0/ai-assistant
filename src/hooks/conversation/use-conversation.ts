@@ -91,7 +91,7 @@ export const useChatTime = (createdAt: Date, roomId: string) => {
 
     if (difference <= 0) {
       // 如果当前日期和消息创建日期在同一天或消息创建日期在未来
-      setMessageSentAt(`${hr > 12 ? '下午' : '上午'} ${hr}:${min}`); // 设置消息发送时间为 "小时:分钟 AM/PM"
+      setMessageSentAt(`${hr > 12 ? '下午' : '上午'} ${hr}:${min}`); // 设置消息发送时间为 "小时:分钟 上午/下午"
       if (current.getHours() - dt.getHours() < 2) {
         // 如果消息创建时间和当前时间的小时差小于 2 小时
         setUrgent(true); // 将消息标记为紧急
