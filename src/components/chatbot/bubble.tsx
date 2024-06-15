@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import MySvgComponent from '@/icons/ai-assis';
 
 interface Props {
   message: {
@@ -24,8 +25,7 @@ const Bubble = ({ message, createdAt }: Props) => {
     >
       {message.role == 'assistant' ? (
         <Avatar className="w-5 h-5">
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <MySvgComponent />
         </Avatar>
       ) : (
         <Avatar className="w-5 h-5">
@@ -52,7 +52,7 @@ const Bubble = ({ message, createdAt }: Props) => {
             </p>
           </div>
         ) : (
-          <p className="text-xs">{`${d.getHours()}:${d.getMinutes()} ${d.getHours() > 12 ? 'pm' : 'am'}`}</p>
+          <p className="text-xs">{`${d.getHours()}:${d.getMinutes()} ${d.getHours() > 12 ? '下午' : '上午'}`}</p>
         )}
         {image ? (
           <div className="relative aspect-square">

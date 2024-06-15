@@ -18,6 +18,7 @@ import Accordion from '../accordion';
 import TabsMenu from '../tabs';
 import RealTimeMode from './real-time';
 import { Responding } from './responding';
+import MySvgComponent from '@/icons/ai-assis';
 
 type Props = {
   errors: any;
@@ -72,31 +73,25 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
   ) => {
     console.log(errors);
     return (
-      <div className="max-h-[590px] w-[450px] flex flex-col  bg-white rounded-xl mr-[80px] border-[1px] overflow-hidden">
+      <div className="max-h-[560px]  w-[450px] flex flex-col  bg-white rounded-xl mr-[80px] border-[1px] overflow-hidden">
         <div className="flex justify-between px-4 pt-4">
           <div className="flex gap-2">
             <Avatar className="w-20 h-20">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
+              <MySvgComponent />
             </Avatar>
             <div className="flex items-start flex-col">
-              <h3 className="text-lg font-bold leading-none">Sales Rep </h3>
+              <h3 className="text-lg font-bold leading-none">智能销售客户 </h3>
               <p className="text-sm">{domainName.split('.com')[0]}</p>
               {realtimeMode?.mode && <RealTimeMode setChats={setChat} chatRoomId={realtimeMode.chatroom} />}
             </div>
           </div>
-          <div className="relative w-16 h-16">
-            {/* <Image
-              src="https://ucarecdn.com/019dd17d-b69b-4dea-a16b-60e0f25de1e9/propuser.png"
-              fill
-              alt="users"
-              objectFit="contain"
-            /> */}
-            <Image src="" fill alt="users" objectFit="contain" />
+          <div className="relative w-24 h-24">
+            <Image src="/images/prop-user.png" fill alt="users" objectFit="contain" />
           </div>
         </div>
+
         <TabsMenu triggers={BOT_TABS_MENU} className=" bg-transparent border-[1px] border-border m-2">
-          <TabsContent value="chat">
+          <TabsContent value="聊天">
             <Separator orientation="horizontal" />
             <div className="flex flex-col h-full">
               <div
@@ -116,7 +111,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
                 <div className="flex justify-between">
                   <Input
                     {...register('content')}
-                    placeholder="Type your message..."
+                    placeholder="输入消息..."
                     className="focus-visible:ring-0 flex-1 p-0 focus-visible:ring-offset-0 bg-porcelain rounded-none outline-none border-none"
                   />
                   <Button type="submit" className="mt-3">
@@ -131,7 +126,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
             </div>
           </TabsContent>
 
-          <TabsContent value="helpdesk">
+          <TabsContent value="帮助台">
             <div className="h-[485px] overflow-y-auto overflow-x-hidden p-4 flex flex-col gap-4">
               <div>
                 <CardTitle>Help Desk</CardTitle>
