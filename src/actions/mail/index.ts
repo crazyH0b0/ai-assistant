@@ -112,7 +112,7 @@ export const onCreateMarketingCampaign = async (name: string) => {
     });
 
     if (campaign) {
-      return { status: 200, message: 'You campaign was created' };
+      return { status: 200, message: '活动创建成功~' };
     }
   } catch (error) {
     console.log(error);
@@ -149,7 +149,7 @@ export const onAddCustomersToEmail = async (customers: string[], id: string) => 
     });
 
     if (customerAdd) {
-      return { status: 200, message: 'Customer added to campaign' };
+      return { status: 200, message: '客户已添加到活动中~' };
     }
   } catch (error) {}
 };

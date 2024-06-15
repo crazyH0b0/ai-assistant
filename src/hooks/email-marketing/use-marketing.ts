@@ -68,7 +68,7 @@ export const useEmailMarketing = () => {
       if (emailTemplate) {
         toast({
           title: 'Success',
-          description: '邮箱模板创建成功！',
+          description: '邮箱模板更新成功！',
         });
       }
       setValue('description', values.description);

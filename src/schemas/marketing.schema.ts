@@ -9,10 +9,9 @@ type EmailMarketingBodyProps = {
 };
 
 export const EmailMarketingSchema: ZodType<EmailMarketingProps> = z.object({
-  name: z.string().min(3, { message: 'The campaign name must be atleast 3 characters' }),
+  name: z.string().min(3, { message: '活动名称至少需要 3 个字符' }),
 });
 
 export const EmailMarketingBodySchema: ZodType<EmailMarketingBodyProps> = z.object({
-  description: z.string().max(30, { message: 'The body must have atleast 5 characters' }),
-  // description: z.string().min(5, { message: 'The body must have atleast 5 characters' }),
+  description: z.string().max(30, { message: '内容至少需要 5 个字符' }),
 });
