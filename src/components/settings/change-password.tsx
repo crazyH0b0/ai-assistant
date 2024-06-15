@@ -29,7 +29,7 @@ const ChangePassword = (props: Props) => {
           <FormGenerator
             register={register}
             errors={errors}
-            name="comfirmPassword"
+            name="confirmPassword"
             placeholder="确认密码"
             type="password"
             inputType="input"

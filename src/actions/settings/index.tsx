@@ -294,8 +294,8 @@ export async function onUpdatePassword(password: string) {
     if (!user) return auth().redirectToSignIn();
     const update = await clerkClient.users.updateUser(user.id, { password });
     if (update) return { status: 200, message: '密码更新成功~' };
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    throw new Error(error.errors[0].message);
   }
 }
 

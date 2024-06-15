@@ -226,12 +226,16 @@ export function useChangePassword() {
       if (updated) {
         reset();
         toast({
-          title: '成功',
+          title: 'Sussess',
           description: updated.message,
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      toast({
+        title: 'Error',
+        description: error.message,
+      });
     } finally {
       setLoading(false);
     }
