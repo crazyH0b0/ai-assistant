@@ -34,7 +34,7 @@ const Page = async (props: Props) => {
           <AllAppointments bookings={domainBookings?.bookings} />
         </div>
         <div className="col-span-1">
-          <Section label="Bookings For Today" message="All your bookings for today are mentioned below." />
+          <Section label="今日预约" message="今天的所有预订如下所示" />
           {bookingsExistToday.length ? (
             bookingsExistToday.map((booking) => (
               <Card key={booking.id} className="rounded-xl overflow-hidden mt-4">
@@ -45,13 +45,13 @@ const Page = async (props: Props) => {
                   <div className="flex flex-col flex-1">
                     <div className="flex justify-between w-full p-3">
                       <p className="text-sm">
-                        created
+                        创建
                         <br />
                         {booking.createdAt.getHours()} {booking.createdAt.getMinutes()}{' '}
                         {booking.createdAt.getHours() > 12 ? 'PM' : 'AM'}
                       </p>
                       <p className="text-sm">
-                        Domain <br />
+                        域名 <br />
                         {booking.Customer?.Domain?.name}
                       </p>
                     </div>
@@ -68,7 +68,7 @@ const Page = async (props: Props) => {
             ))
           ) : (
             <div className="w-full flex justify-center">
-              <p>No Appointments For Today</p>
+              <p>今日无预约~</p>
             </div>
           )}
         </div>

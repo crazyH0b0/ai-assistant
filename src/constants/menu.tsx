@@ -81,17 +81,17 @@ export const HELP_DESK_TABS_MENU: TABS_MENU_PROPS[] = [
   },
 ];
 
-export const APPOINTMENT_TABLE_HEADER = ['Name', 'RequestedTime', 'Added Time', 'Domain'];
+export const APPOINTMENT_TABLE_HEADER = ['用户名', '请求时间', '添加时间', '域名'];
 
-export const EMAIL_MARKETING_HEADER = ['Id', 'Email', 'Answers', 'Domain'];
+export const EMAIL_MARKETING_HEADER = ['Id', '邮箱', '信息回答', '域名'];
 
 export const BOT_TABS_MENU: TABS_MENU_PROPS[] = [
   {
-    label: 'chat',
+    label: '聊天',
     icon: <ChatIcon />,
   },
   {
-    label: 'helpdesk',
+    label: '帮助台',
     icon: <HelpDeskIcon />,
   },
 ];

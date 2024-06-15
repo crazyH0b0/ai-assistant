@@ -29,7 +29,7 @@ const Messager = () => {
                 />
               ))
             ) : (
-              <div>无聊天选中</div>
+              <div>当前无聊天选中~</div>
             )}
           </div>
         </Loader>

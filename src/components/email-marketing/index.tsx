@@ -113,7 +113,8 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                       <div className="flex gap-2 items-center">
                         <CalIcon />
                         <CardDescription>
-                          创建 {getMonthName(camp.createdAt.getMonth())} {camp.createdAt.getDate()}th
+                          创建于 {getMonthName(camp.createdAt.getMonth())}
+                          {camp.createdAt.getDate()}
                         </CardDescription>
                       </div>
                       <div className="flex gap-2">
@@ -126,7 +127,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                       <div className="flex gap-3">
                         <Modal
                           title="编辑邮件"
-                          description="This email will be sent to campaign members"
+                          description="此电子邮件将发送给活动成员"
                           trigger={
                             <Card className="rounded-lg cursor-pointer bg-grandis py-2 px-5 font-semibold text-sm hover:bg-orange text-gray-700">
                               编辑邮件

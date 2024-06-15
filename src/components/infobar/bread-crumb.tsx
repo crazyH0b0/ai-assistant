@@ -27,14 +27,14 @@ const BreadCrumb = (props: Props) => {
         {page == 'settings'
           ? '管理账户设置和偏好'
           : page == 'dashboard'
-            ? 'A detailed overview of your metrics, usage, customers and more'
+            ? 'hhhh'
             : page == 'appointment'
               ? '查看和编辑预约'
               : page == 'email-marketing'
                 ? '批量发送邮件给您的客户'
                 : page == 'integration'
-                  ? 'Connect third-party applications into Corinna-AI'
-                  : '修改域名设置，改变聊天机器人的选项，输入问题并训练您的机器人以实现您想要的功能。'}
+                  ? 'hhh'
+                  : ' '}
       </p>
     </div>
   );
