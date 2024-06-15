@@ -22,8 +22,8 @@ interface Props {
 const ExpandMenu = ({ onExpand, onSignOut, current, domains }: Props) => {
   return (
     <div className="py-3 px-4 flex flex-col h-full">
-      <div className="flex justify-between items-center">
-        <Image
+      <div className="flex justify-end items-center">
+        {/* <Image
           src={'/images/logo.png'}
           alt="logo"
           sizes="1"
@@ -33,7 +33,7 @@ const ExpandMenu = ({ onExpand, onSignOut, current, domains }: Props) => {
           }}
           width={0}
           height={0}
-        />
+        /> */}
         <Menu
           className="cursor-pointer animate-fade-in 
         opacity-0 delay-300 fill-mode-forwards"
