@@ -158,7 +158,7 @@ export async function onDeletedUserDomain(id: string) {
 }
 
 // 更新机器人欢迎语
-export async function onUpdateWelcomeMessage(message: string, domainId: string) {
+export async function onUpdateWelcomeMessage(domainId: string, message: string) {
   const user = await currentUser();
   if (!user) return auth().redirectToSignIn();
 
