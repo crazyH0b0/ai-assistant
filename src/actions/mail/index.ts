@@ -138,7 +138,6 @@ export const onSaveEmailTemplate = async (template: string, campainId: string) =
 
 export const onAddCustomersToEmail = async (customers: string[], id: string) => {
   try {
-    console.log(customers, id);
     const customerAdd = await prisma.campaign.update({
       where: {
         id,

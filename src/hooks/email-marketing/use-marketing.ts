@@ -96,6 +96,8 @@ export const useEmailMarketing = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setProcessing(false);
     }
   };
 
