@@ -45,7 +45,7 @@ const Page = async (props: Props) => {
                   <div className="flex flex-col flex-1">
                     <div className="flex justify-between w-full p-3">
                       <p className="text-sm">
-                        创建
+                        创建时间
                         <br />
                         {booking.createdAt.getHours()} {booking.createdAt.getMinutes()}{' '}
                         {booking.createdAt.getHours() > 12 ? '下午' : '上午'}
