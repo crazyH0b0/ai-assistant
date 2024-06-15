@@ -29,7 +29,7 @@ const Messager = () => {
                 />
               ))
             ) : (
-              <div>No Chat Selected</div>
+              <div>无聊天选中</div>
             )}
           </div>
         </Loader>
@@ -38,11 +38,11 @@ const Messager = () => {
         <div className="flex justify-between">
           <Input
             {...register('content')}
-            placeholder="Type your message..."
+            placeholder="输入消息..."
             className="focus-visible:ring-0 flex-1 p-0 focus-visible:ring-offset-0 bg-muted rounded-none outline-none border-none"
           />
           <Button type="submit" className="mt-3 px-7" disabled={!chatRoom}>
-            Send
+            发送
           </Button>
         </div>
         <span>

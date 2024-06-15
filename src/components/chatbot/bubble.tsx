@@ -63,7 +63,7 @@ const Bubble = ({ message, createdAt }: Props) => {
             {message.content.replace('(complete)', ' ')}
             {message.link && (
               <Link className="underline font-bold pl-2" href={message.link} target="_blank">
-                Your Link
+                链接
               </Link>
             )}
           </p>
