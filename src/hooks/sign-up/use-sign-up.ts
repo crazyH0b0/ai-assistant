@@ -1,122 +1,111 @@
-"use client"
+'use client';
 
 import { UserRegistrationProps, UserRegistrationSchema } from './../../schemas/auth.schema';
-import { useToast } from "@/components/ui/use-toast"
-import { useSignUp } from "@clerk/nextjs"
-import { useRouter } from "next/navigation"
-import React from "react"
-import { useForm } from "react-hook-form"
-import {zodResolver} from "@hookform/resolvers/zod"
-import { z } from "zod"
+import { useToast } from '@/components/ui/use-toast';
+import { useSignUp } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { onComplateUserRegistration } from '@/actions/auth';
 
 export const useSignUpForm = () => {
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(false);
 
-  const {toast} = useToast()
-  
-  const {signUp, isLoaded, setActive} = useSignUp()
+  const { toast } = useToast();
 
-  const router = useRouter()
+  const { signUp, isLoaded, setActive } = useSignUp();
 
-  const form  = useForm<z.infer<typeof UserRegistrationSchema>>({
+  const router = useRouter();
+
+  const form = useForm<z.infer<typeof UserRegistrationSchema>>({
     resolver: zodResolver(UserRegistrationSchema),
     defaultValues: {
-      type: "owner",
+      type: 'owner',
     },
-    mode: 'onChange'
-  })
+    mode: 'onChange',
+  });
 
   const onGenerateOTP = async (
     email: string,
     password: string,
     onNext: React.Dispatch<React.SetStateAction<number>>
   ) => {
-
-    if(!isLoaded) return
+    if (!isLoaded) return;
 
     try {
-
       // 创建注册
-      await signUp.create({
+      const signupRes = await signUp.create({
         emailAddress: email,
-        password: password
-      })
+        password: password,
+      });
+      console.log({ signupRes });
 
       // 发送邮箱验证码
-      await signUp.prepareEmailAddressVerification({strategy: 'email_code'})
-      
+      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+
       // 进入下一步
-      onNext((prev) => prev +1 )
-
+      onNext((prev) => prev + 1);
     } catch (error: any) {
-
       toast({
         title: 'Error',
-        description: error.errors[0].longMessage
-      })
-      
+        description: error.errors[0].longMessage,
+      });
+    } finally {
+      setLoading(false);
     }
-
-  }
+  };
 
   // 表单提交处理函数
-  const onHandleSubmit = form.handleSubmit(
-    async (data: UserRegistrationProps) => {
-      const {type, fullname, otp} = data
+  const onHandleSubmit = form.handleSubmit(async (data: UserRegistrationProps) => {
+    const { type, fullname, otp } = data;
 
-      if(!isLoaded) return
+    if (!isLoaded) return;
 
-       try {
+    try {
+      setLoading(true);
 
-        setLoading(true)
-        
-        // 尝试邮箱验证码验证
-        const complateSignup = await signUp.attemptEmailAddressVerification({
-          code: otp
-        })
-        if(complateSignup.status !== 'complete') return {message: '出错了~'}
+      // 尝试邮箱验证码验证
+      const complateSignup = await signUp.attemptEmailAddressVerification({
+        code: otp,
+      });
+      if (complateSignup.status !== 'complete') return { message: '出错了~' };
 
-        if(complateSignup.status === 'complete') {
-          
-          if(!signUp.createdUserId) return
+      if (complateSignup.status === 'complete') {
+        if (!signUp.createdUserId) return;
 
-          const registered = await onComplateUserRegistration(
-            fullname,
-            signUp.createdUserId,
-            type
-          )
+        const registered = await onComplateUserRegistration(fullname, signUp.createdUserId, type);
 
-          if(registered?.status === 200 && registered.user) {
-            await setActive({
-              session: complateSignup.createdSessionId
-            })
-            setLoading(false)
-            router.push("/dashboard")
-          }
-
-          if(registered?.status === 400) {
-           toast({
-            title: 'Error',
-            description: ' 出错了~'
-           }) 
-          }
+        if (registered?.status === 200 && registered.user) {
+          await setActive({
+            session: complateSignup.createdSessionId,
+          });
+          setLoading(false);
+          router.push('/settings');
         }
-       } catch (error: any) {
-        toast({
-          title: 'Error',
-          description: error.errors[0].longMessage
-        })
-        
-       }
 
+        if (registered?.status === 400) {
+          toast({
+            title: 'Error',
+            description: ' 出错了~',
+          });
+        }
+      }
+    } catch (error: any) {
+      toast({
+        title: 'Error',
+        description: error.errors[0].longMessage,
+      });
+    } finally {
+      setLoading(false);
     }
-  )
+  });
 
   return {
     form,
     onHandleSubmit,
     onGenerateOTP,
-    loading
-  }
-}
+    loading,
+  };
+};
