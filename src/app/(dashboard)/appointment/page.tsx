@@ -34,7 +34,7 @@ const Page = async (props: Props) => {
           <AllAppointments bookings={domainBookings?.bookings} />
         </div>
         <div className="col-span-2 ">
-          <Section label="今日预约" message="今天的所有预订如下所示" />
+          <Section label="今日预约" message="今天的所有预约如下所示" />
           {bookingsExistToday.length ? (
             bookingsExistToday.map((booking) => (
               <Card key={booking.id} className="rounded-xl overflow-hidden mt-4">
