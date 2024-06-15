@@ -50,15 +50,15 @@ const ConversationMenu = ({ domains }: Props) => {
 
         <TabsContent value="全部">
           <Separator orientation="horizontal" className="mt-5" />
-          全部
+          开发中
         </TabsContent>
         <TabsContent value="已过期">
           <Separator orientation="horizontal" className="mt-5" />
-          过期
+          开发中
         </TabsContent>
         <TabsContent value="收藏">
           <Separator orientation="horizontal" className="mt-5" />
-          收藏
+          开发中
         </TabsContent>
       </TabsMenu>
     </div>

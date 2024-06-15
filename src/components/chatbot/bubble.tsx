@@ -43,11 +43,12 @@ const Bubble = ({ message, createdAt }: Props) => {
         {createdAt ? (
           <div className="flex gap-2 text-xs text-gray-600">
             <p>
-              {createdAt.getDate()} {getMonthName(createdAt.getMonth())}
+              {getMonthName(createdAt.getMonth())} {createdAt.getDate()}
             </p>
             <p>
+              {createdAt.getHours() > 12 ? '下午' : '上午'}
+              {}
               {createdAt.getHours()}:{createdAt.getMinutes()}
-              {createdAt.getHours() > 12 ? 'PM' : 'AM'}
             </p>
           </div>
         ) : (

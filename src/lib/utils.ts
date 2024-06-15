@@ -38,26 +38,26 @@ export const extractUUIDFromString = (url: string) => {
 
 export const getMonthName = (month: number) => {
   return month == 1
-    ? 'Jan'
+    ? '1/'
     : month == 2
-      ? 'Feb'
+      ? '2/'
       : month == 3
-        ? 'Mar'
+        ? '3/'
         : month == 4
-          ? 'Apr'
+          ? '4/'
           : month == 5
-            ? 'May'
+            ? '5/'
             : month == 6
-              ? 'Jun'
+              ? '6/'
               : month == 7
-                ? 'Jul'
+                ? '7/'
                 : month == 8
-                  ? 'Aug'
+                  ? '8/'
                   : month == 9
-                    ? 'Sep'
+                    ? '9/'
                     : month == 10
-                      ? 'Oct'
+                      ? '10/'
                       : month == 11
-                        ? 'Nov'
-                        : month == 12 && 'Dec';
+                        ? '11/'
+                        : month == 12 && '12/';
 };
