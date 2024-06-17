@@ -222,7 +222,7 @@ export const onAiChatBotAssistant = async (
 
               始终保持角色并保持尊重。
 
-              问题数组： [${chatBotDomain.filterQuestions.map((questions) => questions.question).join(', ')}]
+              问题数组： [${chatBotDomain.filterQuestions.map((questions: { question: string }) => questions.question).join(', ')}]
 
               如果客户说了一些无关或不适当的话，请简单地告诉他们这超出了你的能力范围，你会让一个真人用户继续对话。在这句话的末尾添加关键词 (realtime)。
 
