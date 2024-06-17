@@ -205,6 +205,7 @@ export const onAiChatBotAssistant = async (
         // 如果响应中包含 (realtime) 关键字，
         // 则将聊天房间状态更新为实时模式，以便用户能够与人工客服进行实时对话。
         const chatCompletion = await openai.chat.completions.create({
+          // process.env.PRO_URL
           messages: [
             {
               role: 'assistant',
