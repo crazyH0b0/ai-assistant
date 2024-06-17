@@ -14,7 +14,7 @@ import Loader from '@/components/loader';
 interface Props {
   id: string;
   name: string;
-  plan: 'STANDARD' | 'PRO' | 'ULTIMATE';
+  plan: any;
   chatBot: {
     id: string;
     icon: string | null;
