@@ -118,10 +118,10 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
                     <Send />
                   </Button>
                 </div>
-                <Label htmlFor="bot-image">
+                {/* <Label htmlFor="bot-image">
                   <Paperclip />
                   <Input {...register('image')} type="file" id="bot-image" className="hidden" />
-                </Label>
+                </Label> */}
               </form>
             </div>
           </TabsContent>

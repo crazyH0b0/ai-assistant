@@ -45,9 +45,9 @@ const Messager = () => {
             发送
           </Button>
         </div>
-        <span>
+        {/* <span>
           <PaperclipIcon className="text-muted-foreground" />
-        </span>
+        </span> */}
       </form>
     </div>
   );
