@@ -35,7 +35,7 @@ const CodeSnippet = ({ id }: Props) => {
     document.body.appendChild(iframe)
     
     window.addEventListener("message", (e) => {
-        if(e.origin !== "http://localhost:3000") return null
+        if(e.origin !== "https://ai-assistant-pts3.vercel.app") return null
         let dimensions = JSON.parse(e.data)
         iframe.width = dimensions.width
         iframe.height = dimensions.height
