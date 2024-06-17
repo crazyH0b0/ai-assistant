@@ -20,7 +20,7 @@ const EditChatbotIcon = ({ register, errors, chatBot }: Props) => {
   return (
     <div className="py-5 flex flex-col gap-5 items-start">
       <Section label="机器人图标" message="更换机器人图标" />
-      <UploadButton label="编辑图片" register={register} errors={errors} />
+      {/* <UploadButton label="编辑图片" register={register} errors={errors} /> */}
       {chatBot?.icon ? (
         <div className="rounded-full overflow-hidden">
           <Image
