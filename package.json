@@ -54,6 +54,7 @@
     "openai": "^4.49.1",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.6.0",
+    "prisma": "^5.15.0",
     "pusher": "^5.2.0",
     "pusher-js": "^8.4.0-rc2",
     "react": "^18",
