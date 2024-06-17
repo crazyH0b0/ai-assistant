@@ -15,10 +15,10 @@ export const onMailer = (email: string) => {
   });
 
   const mailOptions = {
-    from: '1327185450@qq.com',
+    from: process.env.NODE_MAILER_EMAIL,
     to: email,
-    subject: 'Realtime Support',
-    text: 'One of your customers on Corinna, just switched to realtime mode',
+    subject: '人工客服支持',
+    text: '您有一位客户需要人工客服帮助, 请你进入聊天室并打开实时模式',
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
