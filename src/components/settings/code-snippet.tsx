@@ -55,7 +55,7 @@ const CodeSnippet = ({ id }: Props) => {
             navigator.clipboard.writeText(snippet);
             toast({
               title: '已复制到粘贴板',
-              description: '你现在可以将该代码粘贴到你的网站中',
+              description: '你现在可以将该代码粘贴到你的网站(第三方网站)中',
             });
           }}
         />

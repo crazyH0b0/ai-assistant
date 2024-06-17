@@ -156,9 +156,7 @@ export const onAiChatBotAssistant = async (
             console.log('new customer made');
             const response = {
               role: 'assistant',
-              content: `Welcome aboard ${
-                customerEmail.split('@')[0]
-              }! I'm glad to connect with you. Is there anything you need help with?`,
+              content: `欢迎您加入 ${customerEmail.split('@')[0]}! 很高兴能与你联系。 有什么需要帮助的吗?`,
             };
             return { response };
           }
