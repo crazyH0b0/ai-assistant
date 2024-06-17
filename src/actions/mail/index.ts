@@ -208,7 +208,7 @@ export const onBulkMailer = async (email: string[], campaignId: string) => {
         },
       });
       if (creditsUsed) {
-        return { status: 200, message: 'Campaign emails sent' };
+        return { status: 200, message: '邮件发送成功' };
       }
     }
   } catch (error) {
