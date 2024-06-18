@@ -117,7 +117,7 @@ export function useChatBot() {
 
     console.log('ALL VALUES', values);
     // 如果上传有图片
-    if (values.image.length) {
+    if (values.image && values.image.length) {
       console.log('IMAGE fROM ', values.image[0]);
       // const uploaded = await upload.uploadFile(values.image[0]);
       if (!onRealTime?.mode) {
